@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './App.css'; // Import the CSS file
+import './reset.css';
+import './Login.css'; // Import the CSS file
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -26,7 +27,7 @@ function Login() {
     return (
         <div className="container">
             <div className="form">
-                <h2>Login</h2>
+                <h1>K-trip</h1>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Username:</label>
@@ -47,6 +48,11 @@ function Login() {
                         />
                     </div>
                     <button type="submit">Login</button>
+                    <div className="extra-links">
+                        <a href="#">Forgot ID or Password?</a>
+                        <span> | </span>
+                        <a href="#">Sign Up</a>
+                    </div>
                 </form>
             </div>
         </div>
