@@ -1,22 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import Navbar from "./Navbar";
-import Routing from "./Routing";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.js";
+import Login from "./Login";
 
-import Modal from 'react-modal';
-
-Modal.setAppElement('#root');
-//Nav bar
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <React.StrictMode>
-        <Navbar/>
-        <Routing/>
-    </React.StrictMode>
+  <React.StrictMode>
+    <Login />
+  </React.StrictMode>
 );
-
-reportWebVitals();
