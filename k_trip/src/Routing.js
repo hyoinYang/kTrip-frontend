@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReviewLoad from "./pages/ReviewLoad";
 import Navbar from "./Navbar";
+import Login from "./Login";
 import ReviewModal from "./modals/ReviewModal";
 
 function Routing() {
@@ -12,6 +13,7 @@ function Routing() {
       <BrowserRouter>
         <Routes>
           <Route path="" element={null} />
+          <Route path="login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>
