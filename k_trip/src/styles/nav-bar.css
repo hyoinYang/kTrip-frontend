@@ -1,12 +1,14 @@
+.App {
+  width: 100%;
+}
+
 .nav-element {
-  background-color: tomato;
   border-radius: 10px;
   margin: 0px, 10px, 0px, 10px;
   padding: 0px, 10px, 0px, 10px;
 }
 
 .dropdown-toggle {
-  background-color: tomato;
   border-radius: 10px;
   margin: 0px, 10px, 0px, 10px;
 }

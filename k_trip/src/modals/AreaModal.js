@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal"; // react-modal import
 import { StyleSheet } from "react-native";
 import fetchData from "../fetchData";
+import "./modalStyles/areamodal.css";
+
 const URL = "/areaCode1";
 const AreaModal = ({ isOpen, onClose, data }) => {
   const itemsPerPage = 9; // 페이지당 아이템 수 (3x3 그리드 형태로 출력)

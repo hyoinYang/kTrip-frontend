@@ -9,6 +9,7 @@ import "./styles/nav-bar.css";
 
 import Modal from "react-modal";
 import { RouterProvider } from "react-router-dom";
+import "./styles/root.css";
 
 Modal.setAppElement("#root");
 //Nav bar
