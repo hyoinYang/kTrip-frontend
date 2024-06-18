@@ -15,8 +15,16 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("User Logged In:", formData);
-    alert("Login successful!");
-    // Here you can add the logic to send the form data to the backend for authentication
+
+    // post_url에 맞게 서버에 fetch 한다.
+    const post_url = ""; // post_url에 POST할 url을 입력한다.
+    fetch(post_url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    }).then(() => {
+      console.log("Successfully posted");
+    });
   };
 
   const handleSignup = () => {
