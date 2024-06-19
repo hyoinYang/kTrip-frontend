@@ -43,7 +43,7 @@ const AreaModal = ({ isOpen, onClose, data }) => {
       ariaHideApp={false}
       portalClassName="modal-portal"
     >
-      <div>지역 선택</div>
+      <div className="title">지역 선택</div>
       <div className="grid-container">
         {currentPageItems.map((item, index) => (
           <button
@@ -57,18 +57,28 @@ const AreaModal = ({ isOpen, onClose, data }) => {
           </button>
         ))}
       </div>
-      <div>
-        <button onClick={handlePrevPage} disabled={page === 1}>
+      <div className="page-move-container">
+        <button
+          className="prev-btn"
+          onClick={handlePrevPage}
+          disabled={page === 1}
+        >
           이전
         </button>
-        <span>
+        <span className="page-range">
           {page}/{pageCount}
         </span>
-        <button onClick={handleNextPage} disabled={page === pageCount}>
+        <button
+          className="next-btn"
+          onClick={handleNextPage}
+          disabled={page === pageCount}
+        >
           다음
         </button>
       </div>
-      <button onClick={handleCloseModal}>닫기</button>
+      <button className="close-btn" onClick={handleCloseModal}>
+        닫기
+      </button>
     </Modal>
   );
 };
