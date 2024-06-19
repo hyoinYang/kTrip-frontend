@@ -1,0 +1,45 @@
+.mypage-container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  background-color: tan;
+}
+
+span {
+  font-size: 20px;
+  font-weight: 400;
+  display: inline-block;
+}
+
+.top-title {
+  font-weight: 900;
+}
+
+.mypage-container > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+
+  border-color: black;
+  border-width: 20px;
+  border: solid;
+  margin: 0px 10px;
+}
+
+.my-info-container,
+.saved-loc-container {
+  width: 400px;
+  height: 500px;
+}
+
+.my-review-container {
+  width: 500px;
+}
+
+.profile-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: azure;
+}
