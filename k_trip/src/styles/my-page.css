@@ -2,7 +2,6 @@
   margin-top: 100px;
   display: flex;
   justify-content: center;
-  background-color: tan;
 }
 
 span {
@@ -12,24 +11,28 @@ span {
 }
 
 .top-title {
+  margin-top: 5px;
+  margin-bottom: 100px;
   font-weight: 900;
 }
 
 .mypage-container > div {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
 
+  background-color: rgb(234, 237, 244);
   border-color: black;
   border-width: 20px;
+  border-radius: 20px;
   border: solid;
-  margin: 0px 10px;
+  margin: 0px 20px;
 }
 
 .my-info-container,
 .saved-loc-container {
-  width: 400px;
+  width: 200px;
   height: 500px;
 }
 
@@ -42,4 +45,8 @@ span {
   height: 100px;
   border-radius: 50%;
   background-color: azure;
+}
+
+.user-email {
+  margin-bottom: 30px;
 }
