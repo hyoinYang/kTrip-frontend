@@ -1,31 +1,22 @@
 import axios from "axios";
 
-const fetchData = async (URL, setData, setError, setLoading, areaCode) => {
+const baseURL = "http://localhost:8080/";
+
+const fetchData = async (endpoint, setData, setError, setLoading, params) => {
     try {
         setError(null);
-        setData(null);
         setLoading(true);
 
-        const params = {
-            numOfRows:'50',
-            MobileOS: 'WIN',
-            MobileApp: 'K-trip',
-            _type: 'json',
-            serviceKey: '본인의 서비스키 입력'
-        };
-
-        if (areaCode) {
-            params.areaCode = areaCode;
-        }
-        const response = await axios.get(URL, { params });
-
-        const dataArray = Object.values(response.data.response.body.items.item);
-        setData(dataArray);
+        const response = await axios.get(`${baseURL}${endpoint}`, { params });
+        // Assuming the array you need is in response.data
+        const dataArray = response.data;
+        setData(dataArray); // Update the state with the fetched data
         console.log(dataArray);
-    } catch(e) {
+    } catch (e) {
         setError(e);
+    } finally {
+        setLoading(false);
     }
-    setLoading(false);
 };
 
 export default fetchData;
