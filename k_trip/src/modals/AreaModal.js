@@ -1,33 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import Modal from 'react-modal'; // react-modal import
-import { StyleSheet } from 'react-native';
+import React, { useState, useEffect } from "react";
+import Modal from "react-modal"; // react-modal import
+import { StyleSheet } from "react-native";
 import fetchData from "../fetchData";
-const URL = '/areaCode1';
-const AreaModal = ({ isOpen, onClose, data }) => {
-    const itemsPerPage = 9; // 페이지당 아이템 수 (3x3 그리드 형태로 출력)
+import "./modalStyles/areamodal.css";
 
-    // 페이지 관련 상태
+const AreaModal = ({ isOpen, onClose }) => {
     const [page, setPage] = useState(1);
-    const [data2, setData2] = useState([]);
+    const [data, setData] = useState([]); // Initialize data as an empty array
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const pageCount = Math.ceil(data.length / itemsPerPage);
-
-    const currentPageItems = data.slice((page - 1) * itemsPerPage, page * itemsPerPage);
-
+    const [selectedAreaCode, setSelectedAreaCode] = useState(null); // State to store selected area code
+    const [selectedSigunguCode, setSelectedSigunguCode] = useState(null);
     const handleCloseModal = () => {
         setPage(1);
+        setSelectedAreaCode(null); // Clear selected area code when modal closes
         onClose();
     };
 
-    // 페이지 이동 함수
     const handleNextPage = () => {
-        setPage(prevPage => Math.min(prevPage + 1, pageCount)); // 다음 페이지로 이동하되, 마지막 페이지를 넘어가지 않도록 함
+        setPage((prevPage) => prevPage + 1); // Increase page number
+        fetchData('trip/area', setData, setError, setLoading, { areacode: selectedAreaCode, pageno: page + 1 });
     };
 
     const handlePrevPage = () => {
-        setPage(prevPage => Math.max(prevPage - 1, 1)); // 이전 페이지로 이동하되, 첫 페이지 미만으로 가지 않도록 함
+        setPage((prevPage) => Math.max(prevPage - 1, 1)); // Decrease page number but not below 1
+        fetchData('trip/area', setData, setError, setLoading, { areacode: selectedAreaCode, pageno: page - 1 });
     };
+
+    const handleSelectArea = (code) => {
+        if (selectedAreaCode === null) {
+            setSelectedAreaCode(code); // Update selected area code
+            fetchData('trip/area', setData, setError, setLoading, { areacode: code, pageno: 1 }); // Fetch data for selected area
+        } else {
+            setSelectedSigunguCode(code); // Update selected sigungu code
+            fetchData('trip/area', setData, setError, setLoading, { areacode: selectedAreaCode, sigungucode: code, pageno: 1 }); // Fetch data for selected sigungu within selected area
+        }
+        console.log({selectedAreaCode, selectedSigunguCode});
+    };
+
+
+    useEffect(() => {
+        if (isOpen) {
+            fetchData('trip/area', setData, setError, setLoading, { pageno: 1 });
+        }
+    }, [isOpen]);
 
     return (
         <Modal
@@ -38,46 +54,62 @@ const AreaModal = ({ isOpen, onClose, data }) => {
             ariaHideApp={false}
             portalClassName="modal-portal"
         >
-            <div>지역 선택</div>
+            <div className="title">지역 선택</div>
             <div className="grid-container">
-                {currentPageItems.map((item, index) => (
-                    <button key={index} className="grid-item btn btn-primary" onClick={() =>
-                        fetchData(URL, setData2, setError, setLoading, item.code)
-                    }>{item.name}</button>
+                {data.map((item, index) => (
+                    <button
+                        key={index}
+                        className="grid-item btn btn-primary"
+                        onClick={() => handleSelectArea(item.code)}
+                    >
+                        {item.name}
+                    </button>
                 ))}
             </div>
-            <div>
-                <button onClick={handlePrevPage} disabled={page === 1}>이전</button>
-                <span>{page}/{pageCount}</span>
-                <button onClick={handleNextPage} disabled={page === pageCount}>다음</button>
-            </div>
-            <button onClick={handleCloseModal}>닫기</button>
 
+            <div className="page-move-container">
+                <button
+                    className="prev-btn"
+                    onClick={handlePrevPage}
+                    disabled={page === 1}
+                >
+                    이전
+                </button>
+                <button
+                    className="next-btn"
+                    onClick={handleNextPage}
+                >
+                    다음
+                </button>
+            </div>
+            <button className="close-btn" onClick={handleCloseModal}>
+                닫기
+            </button>
         </Modal>
     );
 };
 
 const modalStyle = StyleSheet.create({
     overlay: {
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)' // 배경에 흐릿한 효과를 줄 때 사용합니다.
+        backgroundColor: "rgba(0, 0, 0, 0.5)", // 배경에 흐릿한 효과를 줄 때 사용합니다.
     },
     content: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        maxWidth: '80%',
-        maxHeight: '80%',
-        overflow: 'auto',
-        backgroundColor: 'white', // 모달의 배경색을 지정합니다.
-        borderRadius: '10px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' // 그림자 효과를 추가할 수 있습니다.
-    }
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        maxWidth: "80%",
+        maxHeight: "80%",
+        overflow: "auto",
+        backgroundColor: "white", // 모달의 배경색을 지정합니다.
+        borderRadius: "10px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // 그림자 효과를 추가할 수 있습니다.
+    },
 });
 
 export default AreaModal;
