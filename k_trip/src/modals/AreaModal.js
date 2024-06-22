@@ -9,6 +9,7 @@ const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [selectedAreaCode, setSelectedAreaCode] = useState(null);
+    const [selectedAreaName, setSelectedAreaName] = useState(null);
 
 
     const handleCloseModal = () => {
@@ -27,14 +28,16 @@ const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
         fetchData('trip/area', setData, setError, setLoading, { areacode: selectedAreaCode, pageno: page - 1 });
     };
 
-    const handleSelectArea = (code) => {
+    const handleSelectArea = (code, name) => {
         if (selectedAreaCode === null) {
             setSelectedAreaCode(code);
+            setSelectedAreaName(name);
             fetchData('trip/area', setData, setError, setLoading, { areacode: code, pageno: 1 });
         } else {
-            onSelectArea(selectedAreaCode, code);
-            console.log({selectedAreaCode, code});
+            onSelectArea(selectedAreaCode, code, selectedAreaName, name);
+            console.log({selectedAreaName, name});
             setSelectedAreaCode(null);
+            setSelectedAreaName(null);
         }
     };
 
@@ -62,7 +65,7 @@ const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
                     <button
                         key={index}
                         className="grid-item btn btn-primary"
-                        onClick={() => handleSelectArea(item.code)}
+                        onClick={() => handleSelectArea(item.code, item.name)}
                     >
                         {item.name}
                     </button>
