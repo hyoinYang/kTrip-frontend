@@ -13,11 +13,15 @@ function Navbar() {
     const [guideModalIsOpen, setGuideModalIsOpen] = useState(false);
     const [recommendPageIsOpen, setRecommendPageIsOpen] = useState(false);
     const [selectedAreaCode, setSelectedAreaCode] = useState(null);
+    const [selectedAreaName, setSelectedAreaName] = useState(null);
     const [selectedSigunguCode, setSelectedSigunguCode] = useState(null);
+    const [selectedSigunguName, setSelectedSigunguName] = useState(null);
 
-    const handleAreaSelect = (areaCode, sigunguCode) => {
+    const handleAreaSelect = (areaCode, sigunguCode, areaName, sigunguName) => {
         setSelectedAreaCode(areaCode);
         setSelectedSigunguCode(sigunguCode);
+        setSelectedAreaName(areaName);
+        setSelectedSigunguName(sigunguName);
         setLocationModalIsOpen(false);
         setRecommendPageIsOpen(true);
     };
@@ -25,10 +29,11 @@ function Navbar() {
     const handleCloseRecommendPage = () => {
         setSelectedAreaCode(null);
         setSelectedSigunguCode(null);
+        setSelectedAreaName(null);
+        setSelectedSigunguName(null);
         setRecommendPageIsOpen(false);
     };
 
-    console.log("Selected Area Code:", selectedAreaCode); // 확인용 console.log
 
     return (
         <>
@@ -155,6 +160,8 @@ function Navbar() {
                     <RecommendPage
                         areacode={selectedAreaCode}
                         sigungucode={selectedSigunguCode}
+                        areaname={selectedAreaName}
+                        sigunguname={selectedSigunguName}
                         onClose={handleCloseRecommendPage}
                     />
                 )}
