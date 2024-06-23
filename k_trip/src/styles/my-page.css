@@ -85,3 +85,23 @@ span {
 .date-info {
   display: inline-block;
 }
+
+.delete-btn,
+.edit-btn {
+  /* font-weight: 600; */
+  font-size: 16px;
+  background-color: #3dd5f3;
+  border-radius: 7px;
+  border-style: none;
+}
+
+.delete-btn {
+  background-color: #ffa0a0;
+}
+
+.edit-btn:hover {
+  background-color: #04c4eb;
+}
+.delete-btn:hover {
+  background-color: #ff8686;
+}

@@ -9,6 +9,7 @@ import NotFound from "./NotFound";
 import MyPage from "./MyPage";
 import Trip from "./Trip";
 import Register from "./Register";
+import ChangePassword from "./ChangePassword";
 // import ReviewModal from "./modals/ReviewModal";
 
 const router = createBrowserRouter([
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
       {
         path: "mypage",
         element: <MyPage />,
+      },
+
+      {
+        path: "mypage/password",
+        element: <ChangePassword />,
       },
       {
         path: "trip",
