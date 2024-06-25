@@ -11,7 +11,6 @@ const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
     const [selectedAreaCode, setSelectedAreaCode] = useState(null);
     const [selectedAreaName, setSelectedAreaName] = useState(null);
 
-
     const handleCloseModal = () => {
         setPage(1);
         setSelectedAreaCode(null);
@@ -35,12 +34,11 @@ const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
             fetchData('trip/area', setData, setError, setLoading, { areacode: code, pageno: 1 });
         } else {
             onSelectArea(selectedAreaCode, code, selectedAreaName, name);
-            console.log({selectedAreaName, name});
+            console.log({ selectedAreaName, name });
             setSelectedAreaCode(null);
             setSelectedAreaName(null);
         }
     };
-
 
     useEffect(() => {
         fetchData('trip/area', setData, setError, setLoading, { pageno: 1 });
@@ -61,7 +59,7 @@ const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
         >
             <div className="title">지역 선택</div>
             <div className="grid-container">
-                {data.map((item, index) => (
+                {data.filter(item => item.rnum).map((item, index) => (
                     <button
                         key={index}
                         className="grid-item btn btn-primary"
