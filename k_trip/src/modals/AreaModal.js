@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal"; // react-modal import
 import fetchData from "../fetchData";
-import "./modalStyles/areamodal.css";
+//import "./modalStyles/areamodal.css";
 
 const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
     const [page, setPage] = useState(1);

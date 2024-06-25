@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import '../index.css';
 
 const ReviewModal = ({ isOpen, onClose }) => {
     const [from, setFrom] = useState('');
