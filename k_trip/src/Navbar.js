@@ -5,6 +5,7 @@ import AreaModal from "./modals/AreaModal";
 import ReviewModal from "./modals/ReviewModal";
 import GuideModal from "./modals/GuideModal";
 import RecommendPage from "./pages/RecommendPage";
+import SpotInfoPage from "./pages/SpotInfoPage";
 import { Outlet } from "react-router-dom";
 
 function Navbar() {
@@ -12,10 +13,13 @@ function Navbar() {
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
     const [guideModalIsOpen, setGuideModalIsOpen] = useState(false);
     const [recommendPageIsOpen, setRecommendPageIsOpen] = useState(false);
+    const [spotInfoPageIsOpen, setSpotInfoPageIsOpen] = useState(false);
     const [selectedAreaCode, setSelectedAreaCode] = useState(null);
     const [selectedAreaName, setSelectedAreaName] = useState(null);
     const [selectedSigunguCode, setSelectedSigunguCode] = useState(null);
     const [selectedSigunguName, setSelectedSigunguName] = useState(null);
+    const [selectedContentId, setSelectedContentId] = useState(null);
+    const [selectedContentTypeId, setSelectedContentTypeId] = useState(null);
 
     const handleAreaSelect = (areaCode, sigunguCode, areaName, sigunguName) => {
         setSelectedAreaCode(areaCode);
@@ -24,6 +28,13 @@ function Navbar() {
         setSelectedSigunguName(sigunguName);
         setLocationModalIsOpen(false);
         setRecommendPageIsOpen(true);
+    };
+
+    const handleItemClick = (contentid, contenttypeid) => {
+        setSelectedContentId(contentid);
+        setSelectedContentTypeId(contenttypeid);
+        setRecommendPageIsOpen(false);
+        setSpotInfoPageIsOpen(true);
     };
 
     const handleCloseRecommendPage = () => {
@@ -162,7 +173,14 @@ function Navbar() {
                         sigungucode={selectedSigunguCode}
                         areaname={selectedAreaName}
                         sigunguname={selectedSigunguName}
+                        onItemClick={handleItemClick}
                         onClose={handleCloseRecommendPage}
+                    />
+                )}
+                {spotInfoPageIsOpen && (
+                    <SpotInfoPage
+                        contentid={selectedContentId}
+                        contenttypeid={selectedContentTypeId}
                     />
                 )}
             </div>
