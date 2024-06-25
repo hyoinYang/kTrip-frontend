@@ -6,14 +6,31 @@ const ChangePassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
       setMessage("비밀번호가 일치하지 않습니다.");
       return;
     }
-    // Add your password change logic here (e.g., API call)
-    setMessage("비밀번호가 성공적으로 변경되었습니다.");
+
+    try {
+      const response = await fetch("/mypage/password", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ newPassword }),
+      });
+
+      if (response.ok) {
+        setMessage("비밀번호가 성공적으로 변경되었습니다.");
+      } else {
+        const errorData = await response.json();
+        setMessage(errorData.message || "비밀번호 변경에 실패했습니다.");
+      }
+    } catch (error) {
+      setMessage("비밀번호 변경 중 오류가 발생했습니다.");
+    }
   };
 
   return (

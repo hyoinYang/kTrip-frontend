@@ -10,7 +10,7 @@ const MyPage = () => {
           <div className="profile-photo"></div>
           <span className="user-nickname">nickname 님</span>
           <span className="user-email">abcd@naver.com</span>
-          <button className="change-user-info-btn">내 정보 변경</button>
+          <button className="change-user-info-btn">닉네임 변경</button>
           <a href="#">패스워드 재설정</a>
         </div>
         <div className="my-review-container">
