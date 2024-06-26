@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AreaModal from "./modals/AreaModal";
@@ -9,6 +10,8 @@ import SpotInfoPage from "./pages/SpotInfoPage";
 import { Outlet } from "react-router-dom";
 
 function Navbar() {
+
+    const navigate = useNavigate();
     const [locationModalIsOpen, setLocationModalIsOpen] = useState(false);
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
     const [guideModalIsOpen, setGuideModalIsOpen] = useState(false);
@@ -28,23 +31,17 @@ function Navbar() {
         setSelectedSigunguName(sigunguName);
         setLocationModalIsOpen(false);
         setRecommendPageIsOpen(true);
+        setSpotInfoPageIsOpen(false);
     };
 
-    const handleItemClick = (contentid, contenttypeid) => {
-        setSelectedContentId(contentid);
-        setSelectedContentTypeId(contenttypeid);
-        setRecommendPageIsOpen(false);
-        setSpotInfoPageIsOpen(true);
-    };
 
-    const handleCloseRecommendPage = () => {
-        setSelectedAreaCode(null);
-        setSelectedSigunguCode(null);
-        setSelectedAreaName(null);
-        setSelectedSigunguName(null);
-        setRecommendPageIsOpen(false);
-    };
 
+    const handleSearchSubmit = (event) => {
+        event.preventDefault(); // 기본 제출 동작 방지
+        const formData = new FormData(event.target);
+        const keyword = formData.get('keyword'); // 폼 데이터에서 검색어 추출
+        navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=1`);
+    };
 
     return (
         <>
@@ -137,27 +134,31 @@ function Navbar() {
                                     </button>
                                 </li>
                             </ul>
-                            <form className="d-flex" role="search">
-                                <input
-                                    className="form-control me-2"
-                                    type="search"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                />
-                                <button
-                                    className="btn btn-outline-success search_btn"
-                                    type="submit"
-                                >
-                                    Search
-                                </button>
-                            </form>
+                                <form className="d-flex"
+                                      role="search"
+                                      action="/trip/search"
+                                      method = "GET"
+                                      onSubmit={handleSearchSubmit}>
+                                    <input
+                                        className="form-control me-2"
+                                        type="search"
+                                        placeholder="Search"
+                                        aria-label="Search"
+                                        name="keyword"
+                                    />
+                                    <button
+                                        className="btn btn-outline-success search_btn"
+                                        type="submit"
+                                    >
+                                        Search
+                                    </button>
+                                </form>
                         </div>
                     </div>
                 </nav>
                 <AreaModal
                     isOpen={locationModalIsOpen}
                     onClose={() => setLocationModalIsOpen(false)}
-                    onSelectArea={handleAreaSelect}
                 />
                 <ReviewModal
                     isOpen={reviewModalIsOpen}
@@ -167,22 +168,6 @@ function Navbar() {
                     isOpen={guideModalIsOpen}
                     onClose={() => setGuideModalIsOpen(false)}
                 />
-                {recommendPageIsOpen && (
-                    <RecommendPage
-                        areacode={selectedAreaCode}
-                        sigungucode={selectedSigunguCode}
-                        areaname={selectedAreaName}
-                        sigunguname={selectedSigunguName}
-                        onItemClick={handleItemClick}
-                        onClose={handleCloseRecommendPage}
-                    />
-                )}
-                {spotInfoPageIsOpen && (
-                    <SpotInfoPage
-                        contentid={selectedContentId}
-                        contenttypeid={selectedContentTypeId}
-                    />
-                )}
             </div>
             <Outlet />
         </>
