@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal"; // react-modal import
 import fetchData from "../fetchData";
-//import "./modalStyles/areamodal.css";
+import "./modalStyles/areamodal.css";
+import "../css/button.css";
+import {useNavigate} from "react-router-dom";
 
-const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
+const AreaModal = ({ isOpen, onClose}) => {
+    const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -14,6 +17,7 @@ const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
     const handleCloseModal = () => {
         setPage(1);
         setSelectedAreaCode(null);
+        setSelectedAreaName(null);
         onClose();
     };
 
@@ -33,10 +37,14 @@ const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
             setSelectedAreaName(name);
             fetchData('trip/area', setData, setError, setLoading, { areacode: code, pageno: 1 });
         } else {
-            onSelectArea(selectedAreaCode, code, selectedAreaName, name);
             console.log({ selectedAreaName, name });
             setSelectedAreaCode(null);
             setSelectedAreaName(null);
+            navigate({
+                pathname: '/recommend/area',
+                search: `?areacode=${selectedAreaCode}&areaname=${selectedAreaName}&sigungucode=${code}&sigunguname=${name}`
+            });
+            handleCloseModal();
         }
     };
 
@@ -62,7 +70,7 @@ const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
                 {data.filter(item => item.rnum).map((item, index) => (
                     <button
                         key={index}
-                        className="grid-item btn btn-primary"
+                        className="grid-item button button--size-m button--text-medium bg-1 button--winona"
                         onClick={() => handleSelectArea(item.code, item.name)}
                     >
                         {item.name}
@@ -72,20 +80,20 @@ const AreaModal = ({ isOpen, onClose, onSelectArea }) => {
 
             <div className="page-move-container">
                 <button
-                    className="prev-btn"
+                    className="prev-btn button button--size-m button--text-medium bg-1 button--winona"
                     onClick={handlePrevPage}
                     disabled={page === 1}
                 >
                     이전
                 </button>
                 <button
-                    className="next-btn"
+                    className="next-btn button button--size-m button--text-medium bg-1 button--winona"
                     onClick={handleNextPage}
                 >
                     다음
                 </button>
             </div>
-            <button className="close-btn" onClick={handleCloseModal}>
+            <button className="close-btn button button--size-m button--text-medium bg-1 button--winona" onClick={handleCloseModal}>
                 닫기
             </button>
         </Modal>
