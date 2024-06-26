@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import fetchData from "../fetchData";
+import postData from "../postData";
 import "./SpotInfoPage.css";
 import {FaStar} from "react-icons/fa";
+import {useLocation, useNavigate} from "react-router-dom";
 
-const SpotInfoPage = ({ contentid, contenttypeid }) => {
+function SpotInfoPage() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const searchParams = new URLSearchParams(location.search);
+    const contentid = searchParams.get('cid');
+    const contenttypeid = searchParams.get('ctypeid');
+    const title = searchParams.get('title');
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [isFavorite, setIsFavorite] = useState(false);
-
     useEffect(() => {
         const fetchDetailInfo = async () => {
             try {
@@ -27,16 +34,18 @@ const SpotInfoPage = ({ contentid, contenttypeid }) => {
         fetchDetailInfo();
     }, [contentid, contenttypeid]);
 
-    const toggleFavorite = (contentid) => {
-        setIsFavorite(prevFavorites =>
-            prevFavorites.includes(contentid)
-                ? prevFavorites.filter(id => id !== contentid)
-                : [...prevFavorites, contentid]
-        );
+    const handleFavoriteClick = (event, contentid, contentname) => {
+        event.preventDefault(); // 클릭 시 기본 동작 방지 (옵션)
+        setIsFavorite(prevIsFavorite => !prevIsFavorite);
+        console.log(typeof contentid);
+        const toggleValue = isFavorite ? 0 : 1;
+        postData('favorite/toggle', setLoading, {
+            cid: contentid,
+            cname: contentname,
+            toggleValue: toggleValue
+        });
     };
-    const handleFavoriteClick = () => {
-        setIsFavorite(!isFavorite);
-    };
+
 
     const renderContent = (item) => {
         if(contenttypeid === "12"){ // 관광지 카테고리
@@ -47,7 +56,7 @@ const SpotInfoPage = ({ contentid, contenttypeid }) => {
                     </div>
                     <div className="item-header">
                         <h2>{item.title}</h2>
-                        <button onClick={handleFavoriteClick} className="favorite-button">
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                             <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                         </button>
                     </div>
@@ -72,7 +81,7 @@ const SpotInfoPage = ({ contentid, contenttypeid }) => {
                     </div>
                     <div className="item-header">
                         <h2>{item.title}</h2>
-                        <button onClick={handleFavoriteClick} className="favorite-button">
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                             <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                         </button>
                     </div>
@@ -100,7 +109,7 @@ const SpotInfoPage = ({ contentid, contenttypeid }) => {
                     </div>
                     <div className="item-header">
                         <h2>{item.title}</h2>
-                        <button onClick={handleFavoriteClick} className="favorite-button">
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                             <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                         </button>
                     </div>
@@ -128,7 +137,7 @@ const SpotInfoPage = ({ contentid, contenttypeid }) => {
                     </div>
                     <div className="item-header">
                         <h2>{item.title}</h2>
-                        <button onClick={handleFavoriteClick} className="favorite-button">
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                             <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                         </button>
                     </div>
@@ -148,7 +157,7 @@ const SpotInfoPage = ({ contentid, contenttypeid }) => {
                     </div>
                     <div className="item-header">
                         <h2>{item.title}</h2>
-                        <button onClick={handleFavoriteClick} className="favorite-button">
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                             <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                         </button>
                     </div>
@@ -190,7 +199,7 @@ const SpotInfoPage = ({ contentid, contenttypeid }) => {
                     </div>
                     <div className="item-header">
                         <h2>{item.title}</h2>
-                        <button onClick={handleFavoriteClick} className="favorite-button">
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                             <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                         </button>
                     </div>
@@ -213,7 +222,7 @@ const SpotInfoPage = ({ contentid, contenttypeid }) => {
                     </div>
                     <div className="item-header">
                         <h2>{item.title}</h2>
-                        <button onClick={handleFavoriteClick} className="favorite-button">
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                             <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                         </button>
                     </div>
