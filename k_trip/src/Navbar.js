@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AreaModal from "./modals/AreaModal";
@@ -7,6 +7,8 @@ import GuideModal from "./modals/GuideModal";
 import RecommendPage from "./pages/RecommendPage";
 import SpotInfoPage from "./pages/SpotInfoPage";
 import { Outlet } from "react-router-dom";
+import LocationComponent from "./LocationComponent";
+import fetchData from "./fetchData";
 
 function Navbar() {
     const [locationModalIsOpen, setLocationModalIsOpen] = useState(false);
@@ -20,6 +22,7 @@ function Navbar() {
     const [selectedSigunguName, setSelectedSigunguName] = useState(null);
     const [selectedContentId, setSelectedContentId] = useState(null);
     const [selectedContentTypeId, setSelectedContentTypeId] = useState(null);
+    const [location, setLocation] = useState(true);
 
     const handleAreaSelect = (areaCode, sigunguCode, areaName, sigunguName) => {
         setSelectedAreaCode(areaCode);
@@ -28,6 +31,8 @@ function Navbar() {
         setSelectedSigunguName(sigunguName);
         setLocationModalIsOpen(false);
         setRecommendPageIsOpen(true);
+        setLocation(false);
+
     };
 
     const handleItemClick = (contentid, contenttypeid) => {
@@ -44,7 +49,6 @@ function Navbar() {
         setSelectedSigunguName(null);
         setRecommendPageIsOpen(false);
     };
-
 
     return (
         <>
@@ -109,7 +113,7 @@ function Navbar() {
                                             </a>
                                         </li>
                                         <li>
-                                            <hr className="dropdown-divider" />
+                                            <hr className="dropdown-divider"/>
                                         </li>
                                         <li>
                                             <a className="dropdown-item" href="#">
@@ -154,6 +158,7 @@ function Navbar() {
                         </div>
                     </div>
                 </nav>
+                <LocationComponent isLocation={location}/>
                 <AreaModal
                     isOpen={locationModalIsOpen}
                     onClose={() => setLocationModalIsOpen(false)}
@@ -184,7 +189,7 @@ function Navbar() {
                     />
                 )}
             </div>
-            <Outlet />
+            <Outlet/>
         </>
     );
 }
