@@ -10,6 +10,7 @@ import MyPage from "./MyPage";
 import Trip from "./Trip";
 import Register from "./Register";
 import ChangePassword from "./ChangePassword";
+import ChangeNickname from "./ChangeNickname";
 // import ReviewModal from "./modals/ReviewModal";
 
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "mypage/password",
         element: <ChangePassword />,
+      },
+      {
+        path: "mypage/nickname",
+        element: <ChangeNickname />,
       },
       {
         path: "trip",

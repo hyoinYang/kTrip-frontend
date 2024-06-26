@@ -46,16 +46,18 @@ span {
   width: 500px;
 }
 
-.profile-photo {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-top: 100px;
-  background-color: azure;
-}
-
 .user-email {
   margin-bottom: 30px;
+}
+
+.user-nickname {
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
+.change-user-info-btn {
+  margin-top: 90px;
+  margin-bottom: 10px;
 }
 
 .review-section {

@@ -1,17 +1,25 @@
-import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./styles/my-page.css";
 
 const MyPage = () => {
+  const navigate = useNavigate();
+  const handleChangeNickname = () => {
+    return navigate("/mypage/nickname");
+  };
   return (
     <>
       <div className="mypage-container">
         <div className="my-info-container">
           <span className="my-info-title top-title">내 정보</span>
-          <div className="profile-photo"></div>
           <span className="user-nickname">nickname 님</span>
           <span className="user-email">abcd@naver.com</span>
-          <button className="change-user-info-btn">닉네임 변경</button>
-          <a href="#">패스워드 재설정</a>
+          <button
+            className="change-user-info-btn"
+            onClick={handleChangeNickname}
+          >
+            닉네임 변경
+          </button>
+          <a href="/mypage/password">패스워드 재설정</a>
         </div>
         <div className="my-review-container">
           <span className="my-review-title top-title">내가 쓴 후기</span>

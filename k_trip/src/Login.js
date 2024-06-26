@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./styles/Login.css";
 
 const Login = () => {
@@ -27,9 +28,9 @@ const Login = () => {
     });
   };
 
+  const navigate = useNavigate();
   const handleSignup = () => {
-    alert("Redirect to signup page");
-    // Add the logic to redirect to the signup page
+    return navigate("/signup");
   };
 
   const handleFindPassword = () => {
@@ -71,11 +72,11 @@ const Login = () => {
           로그인
         </button>
       </form>
-      <button onClick={handleSignup} className="login-secondary-button">
-        회원가입
-      </button>
       <button onClick={handleFindPassword} className="login-secondary-button">
         비밀번호 찾기
+      </button>
+      <button onClick={handleSignup} className="login-secondary-button">
+        회원가입
       </button>
     </div>
   );
