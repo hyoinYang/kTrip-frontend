@@ -15,25 +15,6 @@ function Navbar() {
     const [locationModalIsOpen, setLocationModalIsOpen] = useState(false);
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
     const [guideModalIsOpen, setGuideModalIsOpen] = useState(false);
-    const [recommendPageIsOpen, setRecommendPageIsOpen] = useState(false);
-    const [spotInfoPageIsOpen, setSpotInfoPageIsOpen] = useState(false);
-    const [selectedAreaCode, setSelectedAreaCode] = useState(null);
-    const [selectedAreaName, setSelectedAreaName] = useState(null);
-    const [selectedSigunguCode, setSelectedSigunguCode] = useState(null);
-    const [selectedSigunguName, setSelectedSigunguName] = useState(null);
-    const [selectedContentId, setSelectedContentId] = useState(null);
-    const [selectedContentTypeId, setSelectedContentTypeId] = useState(null);
-
-    const handleAreaSelect = (areaCode, sigunguCode, areaName, sigunguName) => {
-        setSelectedAreaCode(areaCode);
-        setSelectedSigunguCode(sigunguCode);
-        setSelectedAreaName(areaName);
-        setSelectedSigunguName(sigunguName);
-        setLocationModalIsOpen(false);
-        setRecommendPageIsOpen(true);
-        setSpotInfoPageIsOpen(false);
-    };
-
 
 
     const handleSearchSubmit = (event) => {
