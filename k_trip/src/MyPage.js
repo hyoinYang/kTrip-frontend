@@ -31,6 +31,13 @@ const MyPage = () => {
       comment: "Okay, but could be better.",
       date: "2024.01.03",
     },
+    {
+      id: 4,
+      name: "John",
+      rating: 3,
+      comment: "Perfect!",
+      date: "2024.01.05",
+    },
   ];
 
   return (
@@ -46,7 +53,9 @@ const MyPage = () => {
           >
             닉네임 변경
           </button>
-          <a href="/mypage/password">패스워드 재설정</a>
+          <a className="change-password-btn" href="/mypage/password">
+            패스워드 재설정
+          </a>
         </div>
         <div className="my-review-container">
           <span className="my-review-title top-title">내가 쓴 후기</span>
