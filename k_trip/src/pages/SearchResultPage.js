@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useLocation, useHistory, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import fetchData from "../fetchData";
 
 function SearchResultPage() {
@@ -67,9 +67,11 @@ function SearchResultPage() {
 
         return pageNumbers;
     };
-    const handleRecommendItemClick = (contentid, contenttypeid, title) => {
+
+    const handleSearchItemClick = (contentid, contenttypeid, title) => {
         navigate(`/spotinfo?cid=${contentid}&ctypeid=${contenttypeid}&title=${title}`);
     };
+
     const handlePageClick = (pageNumber) => {
         setPage(pageNumber);
         setInputValue(pageNumber);
@@ -86,12 +88,17 @@ function SearchResultPage() {
 
     const handlePageInputBlur = () => {
         let parsedValue = parseInt(inputValue, 10); // 정수로 변환
-        let pageNumber = Math.max(1, Math.min(totalPages, parsedValue));
+        let pageNumber = Math.min(totalPages, Math.max(1, parsedValue));
+
+        if (parsedValue < 1 || parsedValue > totalPages) {
+            alert(`페이지는 1에서 ${totalPages} 사이의 값을 가져야 합니다.`);
+            // 입력이 잘못된 경우 현재 페이지로 다시 설정
+            pageNumber = page;
+        }
 
         setPage(pageNumber);
         setInputValue(pageNumber);
 
-        // URL 업데이트
         const newSearchParams = new URLSearchParams(location.search);
         newSearchParams.set('page', pageNumber.toString());
         navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=${pageNumber}`);
@@ -100,12 +107,17 @@ function SearchResultPage() {
     const handlePageInputKeyDown = (e) => {
         if (e.key === 'Enter') {
             let parsedValue = parseInt(inputValue, 10); // 정수로 변환
-            let pageNumber = Math.max(1, Math.min(totalPages, parsedValue));
+            let pageNumber = Math.min(totalPages, Math.max(1, parsedValue));
+
+            if (parsedValue < 1 || parsedValue > totalPages) {
+                alert(`페이지는 1에서 ${totalPages} 사이의 값을 가져야 합니다.`);
+                // 입력이 잘못된 경우 현재 페이지로 다시 설정
+                pageNumber = page;
+            }
 
             setPage(pageNumber);
             setInputValue(pageNumber);
 
-            // URL 업데이트
             const newSearchParams = new URLSearchParams(location.search);
             newSearchParams.set('page', pageNumber.toString());
             navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=${pageNumber}`);
@@ -116,6 +128,7 @@ function SearchResultPage() {
         <div className="recommend-page">
             <main className="page-content">
                 {error && <p>입력한 값에 해당하는 정보가 없습니다.</p>}
+                {!loading && data.length === 0 && <p>검색 결과가 없습니다.</p>}
                 {!loading && !error && data.length > 0 && (
                     <div className="recommendation-list">
                         {data.map((item) => (
@@ -123,7 +136,7 @@ function SearchResultPage() {
                                 <button
                                     className="button button--size-m button--text-medium bg-1 button--winona"
                                     onClick={() => {
-                                        handleRecommendItemClick(item.contentid, item.contenttypeid, item.title);
+                                        handleSearchItemClick(item.contentid, item.contenttypeid, item.title);
                                     }}>
                                     {item.title}
                                 </button>

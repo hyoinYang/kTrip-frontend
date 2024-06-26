@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import fetchData from "../fetchData";
 import "../css/button.css";
-import {useLocation, useNavigate} from "react-router-dom";
-function RecommendPage()  {
+import { useLocation, useNavigate } from "react-router-dom";
+
+function RecommendPage() {
     const location = useLocation();
     const navigate = useNavigate();
     const searchParams = new URLSearchParams(location.search);
@@ -27,7 +28,7 @@ function RecommendPage()  {
 
     useEffect(() => {
         if (selectedCategory !== null) {
-            getAreaBasedList1(selectedCategory, page);
+            getAreaBasedList(selectedCategory, page);
         }
     }, [selectedCategory, page]);
 
@@ -35,7 +36,7 @@ function RecommendPage()  {
         setInputValue(page); // Synchronize input value with the page state
     }, [page]);
 
-    const getAreaBasedList1 = (cat1, pageno) => {
+    const getAreaBasedList = (cat1, pageno) => {
         setLoading(true);
         fetchData('trip/recommend', (response) => {
             setTotalCount(response[0]);
@@ -44,7 +45,6 @@ function RecommendPage()  {
             setLoading(false);
         }, setError, setLoading, { areacode, sigungucode, pageno, cat1 });
     };
-
 
     const totalPages = Math.ceil(totalCount / itemsPerPage);
 
@@ -101,10 +101,13 @@ function RecommendPage()  {
     };
 
     const handlePageInputBlur = () => {
-        let pageNumber = Math.max(1, Math.min(totalPages, Number(inputValue)));
+        let parsedValue = parseInt(inputValue, 10); // 정수로 변환
+        let pageNumber = Math.max(1, Math.min(totalPages, parsedValue));
 
-        if (pageNumber !== inputValue) {
+        if (parsedValue !== pageNumber) {
             alert(`페이지는 1에서 ${totalPages} 사이의 값을 가져야 합니다.`);
+            // 입력이 잘못된 경우 현재 페이지로 다시 설정
+            pageNumber = page;
         }
 
         setPage(pageNumber);
@@ -113,10 +116,13 @@ function RecommendPage()  {
 
     const handlePageInputKeyDown = (e) => {
         if (e.key === 'Enter') {
-            let pageNumber = Math.max(1, Math.min(totalPages, Number(inputValue)));
+            let parsedValue = parseInt(inputValue, 10); // 정수로 변환
+            let pageNumber = Math.max(1, Math.min(totalPages, parsedValue));
 
-            if (pageNumber !== inputValue) {
+            if (parsedValue !== pageNumber) {
                 alert(`페이지는 1에서 ${totalPages} 사이의 값을 가져야 합니다.`);
+                // 입력이 잘못된 경우 현재 페이지로 다시 설정
+                pageNumber = page;
             }
 
             setPage(pageNumber);
@@ -133,18 +139,19 @@ function RecommendPage()  {
                         <button key={index}
                                 className="button button--size-m button--text-medium bg-1 button--winona"
                                 onClick={() => {
-                            setSelectedCategory(button.value);
-                            setPage(1); // 페이지를 1로 초기화
-                        }}>
+                                    setSelectedCategory(button.value);
+                                    setPage(1); // 페이지를 1로 초기화
+                                }}>
                             {button.label}
                         </button>
                     ))}
                 </div>
             </header>
             <main className="page-content">
-                {error && <p>선택한 카테고리에 해당하는 정보가 없습니다.</p>}
-                {!loading && !error && data.length === 0 && <p>카테고리를 선택해주세요.</p>}
-                {!loading && !error && data.length > 0 && (
+                {loading && <p>데이터를 불러오는 중입니다...</p>}
+                {!loading && data.length === 0 && selectedCategory && <p>선택한 카테고리에 대한 검색 결과가 없습니다.</p>}
+                {!loading && data.length === 0 && !selectedCategory && <p>카테고리를 선택해주세요.</p>}
+                {!loading && data.length > 0 && (
                     <div className="recommendation-list">
                         {data.map((item) => (
                             <div key={item.contentid} className="recommendation-item">
@@ -152,7 +159,7 @@ function RecommendPage()  {
                                     className="button button--size-m button--text-medium bg-1 button--winona"
                                     onClick={() => {
                                         handleRecommendItemClick(item.contentid, item.contenttypeid, item.title);
-                                }}>
+                                    }}>
                                     {item.title}
                                 </button>
                             </div>
@@ -193,6 +200,6 @@ function RecommendPage()  {
             )}
         </div>
     );
-};
+}
 
 export default RecommendPage;
