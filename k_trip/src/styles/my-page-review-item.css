@@ -1,0 +1,36 @@
+.review-section {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.comment-part {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.control-part {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date-info {
+  font-size: 14px;
+  color: #888;
+}
+
+.edit-btn,
+.delete-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-left: 5px;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+  background-color: #45a049;
+}

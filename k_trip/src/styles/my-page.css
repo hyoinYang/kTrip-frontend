@@ -1,109 +1,100 @@
+/* my-page.css */
+
 .mypage-container {
-  margin-top: 100px;
   display: flex;
-  justify-content: center;
-}
-
-span {
-  display: inline-block;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.top-title {
-  margin-top: 5px;
-  /* margin-bottom: 100px; */
-  font-weight: 900;
-  margin-bottom: 20px;
-}
-
-.mypage-container > div {
-  height: 500px;
-  background-color: rgb(234, 237, 244);
-  border-color: black;
-  border-width: 20px;
-  border-radius: 20px;
-  border: solid;
-  margin: 0px 20px;
+  justify-content: space-between; /* Distribute space between items */
+  align-items: flex-start; /* Align items at the start of the container */
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .my-info-container,
 .saved-loc-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-
-  width: 200px;
-  height: 500px;
+  width: 20%; /* Adjust the width as needed */
+  margin-right: 10px;
 }
 
 .my-review-container {
+  width: 55%; /* Set a wider width for the review container */
+  max-height: 300px; /* Set a fixed height for the review container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding-right: 10px; /* To avoid content being hidden under scrollbar */
+}
+
+.my-info-container {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
   flex-direction: column;
-  width: 500px;
+  align-items: center;
 }
 
-.user-email {
-  margin-bottom: 30px;
+.saved-loc-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.user-nickname {
-  margin-top: 60px;
-  margin-bottom: 30px;
-}
-
-.change-user-info-btn {
-  margin-top: 90px;
+.top-title {
+  font-size: 24px;
   margin-bottom: 10px;
 }
 
+.user-nickname,
+.user-email {
+  margin: 5px 0;
+}
+
+.change-user-info-btn,
+.my-info-container a {
+  margin-top: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.change-user-info-btn:hover,
+.my-info-container a:hover {
+  background-color: #45a049;
+}
+
 .review-section {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
 }
 
 .comment-part {
-  background-color: white;
-  width: 400px;
-  height: 120px;
+  margin-bottom: 10px;
 }
 
 .control-part {
-  width: 400px;
   display: flex;
-  justify-content: flex-end;
-}
-
-.control-part > button {
-  margin-left: 15px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .date-info {
-  display: inline-block;
+  font-size: 14px;
+  color: #888;
 }
 
-.delete-btn,
-.edit-btn {
-  /* font-weight: 600; */
-  font-size: 16px;
-  background-color: #3dd5f3;
-  border-radius: 7px;
-  border-style: none;
-}
-
+.edit-btn,
 .delete-btn {
-  background-color: #ffa0a0;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-left: 5px;
 }
 
-.edit-btn:hover {
-  background-color: #04c4eb;
-}
+.edit-btn:hover,
 .delete-btn:hover {
-  background-color: #ff8686;
+  background-color: #45a049;
 }
