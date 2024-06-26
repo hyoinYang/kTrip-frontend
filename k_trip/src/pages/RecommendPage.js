@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import fetchData from "../fetchData";
-
-const RecommendPage = ({ areacode, sigungucode, areaname, sigunguname, onItemClick }) => {
+import "../css/button.css";
+import {useLocation, useNavigate} from "react-router-dom";
+function RecommendPage()  {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const searchParams = new URLSearchParams(location.search);
+    const areacode = searchParams.get('areacode');
+    const areaname = searchParams.get('areaname');
+    const sigungucode = searchParams.get('sigungucode');
+    const sigunguname = searchParams.get('sigunguname');
     const [page, setPage] = useState(1);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -9,9 +17,10 @@ const RecommendPage = ({ areacode, sigungucode, areaname, sigunguname, onItemCli
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [totalCount, setTotalCount] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(12);
-    const [inputValue, setInputValue] = useState(1); // Keep track of the input value separately
+    const [inputValue, setInputValue] = useState(1);
 
     useEffect(() => {
+        console.log(areacode, areaname, sigungucode, sigunguname);
         setSelectedCategory(null);
         setData([]);
     }, [areacode, sigungucode]);
@@ -35,6 +44,7 @@ const RecommendPage = ({ areacode, sigungucode, areaname, sigunguname, onItemCli
             setLoading(false);
         }, setError, setLoading, { areacode, sigungucode, pageno, cat1 });
     };
+
 
     const totalPages = Math.ceil(totalCount / itemsPerPage);
 
@@ -86,6 +96,10 @@ const RecommendPage = ({ areacode, sigungucode, areaname, sigunguname, onItemCli
         setInputValue(e.target.value);
     };
 
+    const handleRecommendItemClick = (contentid, contenttypeid, title) => {
+        navigate(`/spotinfo?cid=${contentid}&ctypeid=${contenttypeid}&title=${title}`);
+    };
+
     const handlePageInputBlur = () => {
         let pageNumber = Math.max(1, Math.min(totalPages, Number(inputValue)));
 
@@ -97,7 +111,7 @@ const RecommendPage = ({ areacode, sigungucode, areaname, sigunguname, onItemCli
         setInputValue(pageNumber);
     };
 
-    const handlePageInputKeyPress = (e) => {
+    const handlePageInputKeyDown = (e) => {
         if (e.key === 'Enter') {
             let pageNumber = Math.max(1, Math.min(totalPages, Number(inputValue)));
 
@@ -116,7 +130,9 @@ const RecommendPage = ({ areacode, sigungucode, areaname, sigunguname, onItemCli
                 <h1>{`${areaname} ${sigunguname}`}</h1>
                 <div className="button-row">
                     {buttons.map((button, index) => (
-                        <button key={index} onClick={() => {
+                        <button key={index}
+                                className="button button--size-m button--text-medium bg-1 button--winona"
+                                onClick={() => {
                             setSelectedCategory(button.value);
                             setPage(1); // 페이지를 1로 초기화
                         }}>
@@ -132,7 +148,11 @@ const RecommendPage = ({ areacode, sigungucode, areaname, sigunguname, onItemCli
                     <div className="recommendation-list">
                         {data.map((item) => (
                             <div key={item.contentid} className="recommendation-item">
-                                <button onClick={() => onItemClick(item.contentid, item.contenttypeid)}>
+                                <button
+                                    className="button button--size-m button--text-medium bg-1 button--winona"
+                                    onClick={() => {
+                                        handleRecommendItemClick(item.contentid, item.contenttypeid, item.title);
+                                }}>
                                     {item.title}
                                 </button>
                             </div>
@@ -140,35 +160,37 @@ const RecommendPage = ({ areacode, sigungucode, areaname, sigunguname, onItemCli
                     </div>
                 )}
             </main>
-            <footer className="page-footer">
-                <div className="pagination-controls">
-                    {page > 1 && (
-                        <>
-                            <button onClick={() => setPage(1)}>맨 앞으로</button>
-                            <button onClick={() => setPage(page - 1)}>이전</button>
-                        </>
-                    )}
-                    {renderPageNumbers()}
-                    {page < totalPages && (
-                        <>
-                            <button onClick={() => setPage(page + 1)}>다음</button>
-                            <button onClick={() => setPage(totalPages)}>맨 뒤로</button>
-                        </>
-                    )}
-                </div>
-                <div className="page-input">
-                    <input
-                        type="number"
-                        min="1"
-                        max={totalPages}
-                        value={inputValue}
-                        onChange={handlePageInputChange}
-                        onBlur={handlePageInputBlur}
-                        onKeyPress={handlePageInputKeyPress}
-                    />
-                    <span> / {totalPages}</span>
-                </div>
-            </footer>
+            {data.length > 0 && (
+                <footer className="page-footer">
+                    <div className="pagination-controls">
+                        {page > 1 && (
+                            <>
+                                <button onClick={() => setPage(1)}>맨 앞으로</button>
+                                <button onClick={() => setPage(page - 1)}>이전</button>
+                            </>
+                        )}
+                        {renderPageNumbers()}
+                        {page < totalPages && (
+                            <>
+                                <button onClick={() => setPage(page + 1)}>다음</button>
+                                <button onClick={() => setPage(totalPages)}>맨 뒤로</button>
+                            </>
+                        )}
+                    </div>
+                    <div className="page-input">
+                        <input
+                            type="number"
+                            min="1"
+                            max={totalPages}
+                            value={inputValue}
+                            onChange={handlePageInputChange}
+                            onBlur={handlePageInputBlur}
+                            onKeyDown={handlePageInputKeyDown}
+                        />
+                        <span> / {totalPages}</span>
+                    </div>
+                </footer>
+            )}
         </div>
     );
 };
