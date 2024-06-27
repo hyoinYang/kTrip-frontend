@@ -10,6 +10,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SearchResultPage from "./pages/SearchResultPage";
 import RecommendPage from "./pages/RecommendPage";
 import SpotInfoPage from "./pages/SpotInfoPage";
+import TourCoursePage from "./pages/TourCoursePage";
 
 Modal.setAppElement('#root');
 //Nav bar
@@ -23,6 +24,7 @@ root.render(
                 <Route path='/recommend/area' element={<RecommendPage/>} />
                 <Route path='/spotinfo' element={<SpotInfoPage/>} />
                 <Route path = '/trip/search' element={<SearchResultPage/>} />
+                <Route path ='/course' element={<TourCoursePage/>} />
             </Routes>
         </BrowserRouter>
 );
