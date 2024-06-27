@@ -24,16 +24,8 @@ function SpotInfoPage() {
         const fetchDetailInfo = async () => {
             try {
                 setLoading(true);
-                const result = await fetchData('trip/detailinfo', setData, setError, setLoading, { contentid, contenttypeid });
-                const reviews = await fetchData('reviews', setReview, setError, setLoading, {ctypeid: contenttypeid, cid: contentid});
-                if (result) {
-                    setData(result);
-                    console.log(data);
-                }
-                if (reviews){
-                    setReview(reviews);
-                    console.log(reviews);
-                }
+                await fetchData('trip/detailinfo', setData, setError, setLoading, { contentid, contenttypeid });
+                await fetchData('reviews', setReview, setError, setLoading, {ctypeid: contenttypeid, cid: contentid});
             } catch (e) {
                 setError(e.message);
             } finally {
@@ -277,7 +269,7 @@ function SpotInfoPage() {
                         {data.map(item => renderContent(item))}
                     </div>
                 )}
-                {!loading && !error && data.length === 0 && <p>작성된 리뷰가 없습니다.</p>}
+                {!loading && !error && review.length === 0 && <p>작성된 리뷰가 없습니다.</p>}
                 {!loading && !error && review.length > 0 && (
                     <div className="recommendation-list">
                         {review.map(item => renderReview(item))}
