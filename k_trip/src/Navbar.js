@@ -3,17 +3,13 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AreaModal from "./modals/AreaModal";
-import ReviewModal from "./modals/ReviewModal";
 import GuideModal from "./modals/GuideModal";
-import RecommendPage from "./pages/RecommendPage";
-import SpotInfoPage from "./pages/SpotInfoPage";
 import { Outlet } from "react-router-dom";
 
 function Navbar() {
 
     const navigate = useNavigate();
     const [locationModalIsOpen, setLocationModalIsOpen] = useState(false);
-    const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
     const [guideModalIsOpen, setGuideModalIsOpen] = useState(false);
 
 
@@ -100,15 +96,6 @@ function Navbar() {
                                     <button
                                         className="nav-link active btn btn-info"
                                         aria-current="page"
-                                        onClick={() => setReviewModalIsOpen(true)}
-                                    >
-                                        리뷰
-                                    </button>
-                                </li>
-                                <li className="nav-item nav-element">
-                                    <button
-                                        className="nav-link active btn btn-info"
-                                        aria-current="page"
                                         onClick={() => setGuideModalIsOpen(true)}
                                     >
                                         길찾기
@@ -140,10 +127,6 @@ function Navbar() {
                 <AreaModal
                     isOpen={locationModalIsOpen}
                     onClose={() => setLocationModalIsOpen(false)}
-                />
-                <ReviewModal
-                    isOpen={reviewModalIsOpen}
-                    onClose={() => setReviewModalIsOpen(false)}
                 />
                 <GuideModal
                     isOpen={guideModalIsOpen}
