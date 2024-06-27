@@ -1,24 +1,30 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./styles/reset.css";
-import "./styles/index.css";
-import reportWebVitals from "./reportWebVitals";
-import router from "./router";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
+import Navbar from "./Navbar";
+import Routing from "./Routing";
 
-import "./styles/nav-bar.css";
+import Modal from 'react-modal';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import SearchResultPage from "./pages/SearchResultPage";
+import RecommendPage from "./pages/RecommendPage";
+import SpotInfoPage from "./pages/SpotInfoPage";
 
-import Modal from "react-modal";
-import { RouterProvider } from "react-router-dom";
-import "./styles/root.css";
-
-Modal.setAppElement("#root");
+Modal.setAppElement('#root');
 //Nav bar
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
 
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+        <BrowserRouter>
+            <Navbar/>
+            <Routes>
+                <Route path='/recommend/area' element={<RecommendPage/>} />
+                <Route path='/spotinfo' element={<SpotInfoPage/>} />
+                <Route path = '/trip/search' element={<SearchResultPage/>} />
+            </Routes>
+        </BrowserRouter>
 );
 
 reportWebVitals();

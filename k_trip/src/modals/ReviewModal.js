@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import postReviewData from "../postReivewData";
 import Modal from 'react-modal';
+import '../index.css';
 
 const MAX_STARS = 5;
 

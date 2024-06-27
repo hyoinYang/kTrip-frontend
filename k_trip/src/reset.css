@@ -45,3 +45,11 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+@font-face {
+    /*font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;*/
+    font-family: "KimjungchulMyungjo-Regular";
+    font-width: normal;
+    src: url("./fonts/KimjungchulMyungjo-Regular.ttf");
+}

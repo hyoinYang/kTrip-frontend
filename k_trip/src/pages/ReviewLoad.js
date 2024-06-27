@@ -34,14 +34,15 @@ function ReviewLoad() {
 
 
     return (
-        <table style={{width:"100%"}}>
-            <tbody>
-                {reviews.map((review, index) => (
-                    <ReviewItem key={index} review={review} />
-                ))}
-            </tbody>
-        </table>
+        <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+            {reviews.map((review, index) => (
+                <div key={index} style={{ marginBottom: "10px" }}>
+                    <ReviewItem review={review} />
+                </div>
+            ))}
+        </div>
     );
+
 }
 
 export default ReviewLoad;

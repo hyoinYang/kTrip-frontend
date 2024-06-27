@@ -1,25 +1,26 @@
+
 .ReactModal__Content {
-  width: 40%;
-  height: 40%;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  align-items: center;
+    width: 40%;
+    height: 40%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 600;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .grid-item {
-  margin: 5px;
+    margin: 5px;
 }
 
 .grid-container {
-  display: grid;
-  /* grid-template-rows: 80px; */
-  grid-template-columns: repeat(3, 1fr);
+    display: grid;
+    /* grid-template-rows: 80px; */
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .page-move-container {
@@ -27,17 +28,18 @@
 
 .prev-btn,
 .next-btn {
-  width: 60px;
-  height: 40px;
-  margin: 10px 10px;
+    width: 60px;
+    height: 40px;
+    margin: 10px 10px;
 }
 
 .close-btn {
-  width: 100px;
-  height: 40px;
+    width: 100px;
+    height: 40px;
 }
 
 .page-range {
-  font-size: 20px;
-  font-weight: 500;
+    font-size: 20px;
+    font-weight: 500;
 }
+
