@@ -33,7 +33,7 @@
     "util": "^0.12.5",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://apis.data.go.kr/B551011/KorService1",
+  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
