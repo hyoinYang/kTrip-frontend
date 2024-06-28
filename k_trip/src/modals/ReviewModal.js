@@ -49,7 +49,7 @@ const ReviewModal = ({ isOpen, onClose }) => {
             console.log('리뷰 등록 성공');
             handleClose();
         } catch (error) {
-            console.error('리뷰 등록 실패:', error);
+            console.error('리뷰 등록 실패: ', error);
         }
     };
 
