@@ -6,6 +6,20 @@ import '../index.css';
 
 const MAX_STARS = 5;
 
+
+const customModalStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        maxWidth: '600px', // 예시로 최대 너비 지정
+        padding: '20px' // 예시로 패딩 지정
+    }
+};
+
 const ReviewModal = ({ isOpen, onClose }) => {
     const [point, setPoint] = useState(5);
     const [content, setContent] = useState(null);
@@ -39,6 +53,7 @@ const ReviewModal = ({ isOpen, onClose }) => {
         <Modal
             isOpen={isOpen}
             onRequestClose={onClose}
+            style={customModalStyles}
             contentLabel="리뷰 작성"
             ariaHideApp={false}
             portalClassName="modal-portal"

@@ -1,63 +1,31 @@
-import React, {useEffect, useState} from "react";
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AreaModal from "./modals/AreaModal";
-import ReviewModal from "./modals/ReviewModal";
 import GuideModal from "./modals/GuideModal";
-import RecommendPage from "./pages/RecommendPage";
-import SpotInfoPage from "./pages/SpotInfoPage";
-import {Link, Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import LocationComponent from "./LocationComponent";
-import fetchData from "./fetchData";
-import Register from "./Register";
-import MyPage from "./MyPage";
 
 const URL = '/areaCode1';
 function Navbar() {
+
+    const navigate = useNavigate();
     const [locationModalIsOpen, setLocationModalIsOpen] = useState(false);
-    const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
     const [guideModalIsOpen, setGuideModalIsOpen] = useState(false);
-    const [recommendPageIsOpen, setRecommendPageIsOpen] = useState(false);
-    const [spotInfoPageIsOpen, setSpotInfoPageIsOpen] = useState(false);
-    const [selectedAreaCode, setSelectedAreaCode] = useState(null);
-    const [selectedAreaName, setSelectedAreaName] = useState(null);
-    const [selectedSigunguCode, setSelectedSigunguCode] = useState(null);
-    const [selectedSigunguName, setSelectedSigunguName] = useState(null);
-    const [selectedContentId, setSelectedContentId] = useState(null);
-    const [selectedContentTypeId, setSelectedContentTypeId] = useState(null);
     const [location, setLocation] = useState(true);
-    const [selectedSignUp, setSelectedSignUp] = useState(false);
 
-    const handleAreaSelect = (areaCode, sigunguCode, areaName, sigunguName) => {
-        setSelectedAreaCode(areaCode);
-        setSelectedSigunguCode(sigunguCode);
-        setSelectedAreaName(areaName);
-        setSelectedSigunguName(sigunguName);
-        setLocationModalIsOpen(false);
-        setRecommendPageIsOpen(true);
-        setLocation(false);
-
+    const handleSearchSubmit = (event) => {
+        event.preventDefault(); // 기본 제출 동작 방지
+        const formData = new FormData(event.target);
+        const keyword = formData.get('keyword'); // 폼 데이터에서 검색어 추출
+        navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=1`);
     };
 
-    const handleItemClick = (contentid, contenttypeid) => {
-        setSelectedContentId(contentid);
-        setSelectedContentTypeId(contenttypeid);
-        setRecommendPageIsOpen(false);
-        setSpotInfoPageIsOpen(true);
-    };
-
-    const handleCloseRecommendPage = () => {
-        setSelectedAreaCode(null);
-        setSelectedSigunguCode(null);
-        setSelectedAreaName(null);
-        setSelectedSigunguName(null);
-        setRecommendPageIsOpen(false);
-    };
-
-    const closeSignUpModal = () => {
-        setSelectedSignUp(false); // 모달 닫기
-    };
-
+    const onCloseLocation = () => {
+        setLocation(false)
+    }
     return (
         <>
             <div className="App">
@@ -134,35 +102,31 @@ function Navbar() {
                                     <button
                                         className="nav-link active btn btn-info"
                                         aria-current="page"
-                                        onClick={() => setReviewModalIsOpen(true)}
-                                    >
-                                        리뷰
-                                    </button>
-                                </li>
-                                <li className="nav-item nav-element">
-                                    <button
-                                        className="nav-link active btn btn-info"
-                                        aria-current="page"
                                         onClick={() => setGuideModalIsOpen(true)}
                                     >
                                         길찾기
                                     </button>
                                 </li>
                             </ul>
-                            <form className="d-flex" role="search">
-                                <input
-                                    className="form-control me-2"
-                                    type="search"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                />
-                                <button
-                                    className="btn btn-outline-success search_btn"
-                                    type="submit"
-                                >
-                                    Search
-                                </button>
-                            </form>
+                                <form className="d-flex"
+                                      role="search"
+                                      action="/trip/search"
+                                      method = "GET"
+                                      onSubmit={handleSearchSubmit}>
+                                    <input
+                                        className="form-control me-2"
+                                        type="search"
+                                        placeholder="Search"
+                                        aria-label="Search"
+                                        name="keyword"
+                                    />
+                                    <button
+                                        className="btn btn-outline-success search_btn"
+                                        type="submit"
+                                    >
+                                        Search
+                                    </button>
+                                </form>
                         </div>
                     </div>
                 </nav>
@@ -170,32 +134,12 @@ function Navbar() {
                 <AreaModal
                     isOpen={locationModalIsOpen}
                     onClose={() => setLocationModalIsOpen(false)}
-                    onSelectArea={handleAreaSelect}
+                    isLocation={onCloseLocation}
                 />
-                <ReviewModal
-                    isOpen={reviewModalIsOpen}
-                    onClose={() => setReviewModalIsOpen(false)}
-                />
-                {spotInfoPageIsOpen && (
-                    <SpotInfoPage
-                        contentid={selectedContentId}
-                        contenttypeid={selectedContentTypeId}
-                    />
-                )}
                 <GuideModal
                     isOpen={guideModalIsOpen}
                     onClose={() => setGuideModalIsOpen(false)}
                 />
-                {recommendPageIsOpen && (
-                    <RecommendPage
-                        areacode={selectedAreaCode}
-                        sigungucode={selectedSigunguCode}
-                        areaname={selectedAreaName}
-                        sigunguname={selectedSigunguName}
-                        onItemClick={handleItemClick}
-                        onClose={handleCloseRecommendPage}
-                    />
-                )}
             </div>
             <Outlet/>
         </>

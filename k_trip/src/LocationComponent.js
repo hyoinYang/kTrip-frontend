@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import fetchData from "./fetchData";
 import SpotInfoPage from "./pages/SpotInfoPage";
 import RecommendPage from "./pages/RecommendPage";
+import {useNavigate} from "react-router-dom";
 
 const LocationComponent = ({isLocation}) => {
     console.log("locationcomponent: ", isLocation);
@@ -20,15 +21,12 @@ const LocationComponent = ({isLocation}) => {
     const [selectedContentTypeId, setSelectedContentTypeId] = useState(null);
     const [recommendPageIsOpen, setRecommendPageIsOpen] = useState(true);
     const [spotInfoPageIsOpen, setSpotInfoPageIsOpen] = useState(false);
+    const navigate = useNavigate();
 
     console.log("isAgree: ", isAgree);
-    const handleItemClick = (contentid, contenttypeid) => {
-        setSelectedContentId(contentid);
-        setSelectedContentTypeId(contenttypeid);
-        setRecommendPageIsOpen(false);
-        setSpotInfoPageIsOpen(true);
+    const handleItemClick = (contentid, contenttypeid, title) => {
+        navigate(`/spotinfo?cid=${contentid}&ctypeid=${contenttypeid}&title=${title}`);
     };
-
     useEffect(() => {
         // 위치 정보 가져오기
         if (navigator.geolocation && isLocation) {

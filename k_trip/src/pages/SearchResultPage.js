@@ -1,62 +1,38 @@
-import React, { useState, useEffect } from "react";
-import fetchData from "../fetchData";
-import "../css/button.css";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import fetchData from "../fetchData";
 
-function RecommendPage() {
+function SearchResultPage() {
     const location = useLocation();
     const navigate = useNavigate();
     const searchParams = new URLSearchParams(location.search);
-    const areacode = searchParams.get('areacode');
-    const areaname = searchParams.get('areaname');
-    const sigungucode = searchParams.get('sigungucode');
-    const sigunguname = searchParams.get('sigunguname');
-    const [page, setPage] = useState(1);
+    const keyword = searchParams.get('q'); // URL 쿼리 파라미터에서 검색어 추출
+    const [page, setPage] = useState(1); // 페이지 초기값 설정
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState(null);
     const [totalCount, setTotalCount] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(12);
-    const [inputValue, setInputValue] = useState(1);
+    const [inputValue, setInputValue] = useState(page);
 
     useEffect(() => {
-        console.log(areacode, areaname, sigungucode, sigunguname);
-        setSelectedCategory(null);
-        setData([]);
-    }, [areacode, sigungucode]);
-
-    useEffect(() => {
-        if (selectedCategory !== null) {
-            getAreaBasedList(selectedCategory, page);
+        if (keyword) {
+            getSearchKeyword(page);
+            setInputValue(page); // 페이지 값과 input 값 동기화
         }
-    }, [selectedCategory, page]);
+    }, [keyword, page]);
 
-    useEffect(() => {
-        setInputValue(page); // Synchronize input value with the page state
-    }, [page]);
-
-    const getAreaBasedList = (cat1, pageno) => {
+    const getSearchKeyword = (pageno) => {
         setLoading(true);
-        fetchData('trip/recommend', (response) => {
+        fetchData('trip/search', (response) => {
             setTotalCount(response[0]);
             setItemsPerPage(response[1]);
             setData(response.slice(2));
             setLoading(false);
-        }, setError, setLoading, { areacode, sigungucode, pageno, cat1 });
+        }, setError, setLoading, { keyword, pageno });
     };
 
     const totalPages = Math.ceil(totalCount / itemsPerPage);
-
-    const buttons = [
-        { label: "자연", value: "A01" },
-        { label: "인문", value: "A02" },
-        { label: "레포츠", value: "A03" },
-        { label: "쇼핑", value: "A04" },
-        { label: "음식", value: "A05" },
-        { label: "숙박", value: "B02" },
-        { label: "추천 코스", value: "C01" }
-    ];
 
     const renderPageNumbers = () => {
         const pageNumbers = [];
@@ -77,7 +53,7 @@ function RecommendPage() {
             pageNumbers.push(
                 <button
                     key={i}
-                    onClick={() => setPage(i)}
+                    onClick={() => handlePageClick(i)}
                     className={page === i ? 'active' : ''}
                 >
                     {i}
@@ -92,19 +68,29 @@ function RecommendPage() {
         return pageNumbers;
     };
 
+    const handleSearchItemClick = (contentid, contenttypeid, title) => {
+        navigate(`/spotinfo?cid=${contentid}&ctypeid=${contenttypeid}&title=${title}`);
+    };
+
+    const handlePageClick = (pageNumber) => {
+        setPage(pageNumber);
+        setInputValue(pageNumber);
+
+        // URL 업데이트
+        const newSearchParams = new URLSearchParams(location.search);
+        newSearchParams.set('page', pageNumber.toString());
+        navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=${pageNumber}`);
+    };
+
     const handlePageInputChange = (e) => {
         setInputValue(e.target.value);
     };
 
-    const handleRecommendItemClick = (contentid, contenttypeid, title) => {
-        navigate(`/spotinfo?cid=${contentid}&ctypeid=${contenttypeid}&title=${title}`);
-    };
-
     const handlePageInputBlur = () => {
         let parsedValue = parseInt(inputValue, 10); // 정수로 변환
-        let pageNumber = Math.max(1, Math.min(totalPages, parsedValue));
+        let pageNumber = Math.min(totalPages, Math.max(1, parsedValue));
 
-        if (parsedValue !== pageNumber) {
+        if (parsedValue < 1 || parsedValue > totalPages) {
             alert(`페이지는 1에서 ${totalPages} 사이의 값을 가져야 합니다.`);
             // 입력이 잘못된 경우 현재 페이지로 다시 설정
             pageNumber = page;
@@ -112,14 +98,18 @@ function RecommendPage() {
 
         setPage(pageNumber);
         setInputValue(pageNumber);
+
+        const newSearchParams = new URLSearchParams(location.search);
+        newSearchParams.set('page', pageNumber.toString());
+        navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=${pageNumber}`);
     };
 
     const handlePageInputKeyDown = (e) => {
         if (e.key === 'Enter') {
             let parsedValue = parseInt(inputValue, 10); // 정수로 변환
-            let pageNumber = Math.max(1, Math.min(totalPages, parsedValue));
+            let pageNumber = Math.min(totalPages, Math.max(1, parsedValue));
 
-            if (parsedValue !== pageNumber) {
+            if (parsedValue < 1 || parsedValue > totalPages) {
                 alert(`페이지는 1에서 ${totalPages} 사이의 값을 가져야 합니다.`);
                 // 입력이 잘못된 경우 현재 페이지로 다시 설정
                 pageNumber = page;
@@ -127,38 +117,26 @@ function RecommendPage() {
 
             setPage(pageNumber);
             setInputValue(pageNumber);
+
+            const newSearchParams = new URLSearchParams(location.search);
+            newSearchParams.set('page', pageNumber.toString());
+            navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=${pageNumber}`);
         }
     };
 
     return (
         <div className="recommend-page">
-            <header className="page-header">
-                <h1>{`${areaname} ${sigunguname}`}</h1>
-                <div className="button-row">
-                    {buttons.map((button, index) => (
-                        <button key={index}
-                                className="button button--size-m button--text-medium bg-1 button--winona"
-                                onClick={() => {
-                                    setSelectedCategory(button.value);
-                                    setPage(1); // 페이지를 1로 초기화
-                                }}>
-                            {button.label}
-                        </button>
-                    ))}
-                </div>
-            </header>
             <main className="page-content">
-                {loading && <p>데이터를 불러오는 중입니다...</p>}
-                {!loading && data.length === 0 && selectedCategory && <p>선택한 카테고리에 대한 검색 결과가 없습니다.</p>}
-                {!loading && data.length === 0 && !selectedCategory && <p>카테고리를 선택해주세요.</p>}
-                {!loading && data.length > 0 && (
+                {error && <p>입력한 값에 해당하는 정보가 없습니다.</p>}
+                {!loading && data.length === 0 && <p>검색 결과가 없습니다.</p>}
+                {!loading && !error && data.length > 0 && (
                     <div className="recommendation-list">
                         {data.map((item) => (
                             <div key={item.contentid} className="recommendation-item">
                                 <button
                                     className="button button--size-m button--text-medium bg-1 button--winona"
                                     onClick={() => {
-                                        handleRecommendItemClick(item.contentid, item.contenttypeid, item.title);
+                                        handleSearchItemClick(item.contentid, item.contenttypeid, item.title);
                                     }}>
                                     {item.title}
                                 </button>
@@ -172,15 +150,15 @@ function RecommendPage() {
                     <div className="pagination-controls">
                         {page > 1 && (
                             <>
-                                <button onClick={() => setPage(1)}>맨 앞으로</button>
-                                <button onClick={() => setPage(page - 1)}>이전</button>
+                                <button onClick={() => handlePageClick(1)}>맨 앞으로</button>
+                                <button onClick={() => handlePageClick(page - 1)}>이전</button>
                             </>
                         )}
                         {renderPageNumbers()}
                         {page < totalPages && (
                             <>
-                                <button onClick={() => setPage(page + 1)}>다음</button>
-                                <button onClick={() => setPage(totalPages)}>맨 뒤로</button>
+                                <button onClick={() => handlePageClick(page + 1)}>다음</button>
+                                <button onClick={() => handlePageClick(totalPages)}>맨 뒤로</button>
                             </>
                         )}
                     </div>
@@ -202,4 +180,4 @@ function RecommendPage() {
     );
 }
 
-export default RecommendPage;
+export default SearchResultPage;
