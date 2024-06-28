@@ -34,7 +34,10 @@ function SpotInfoPage() {
         };
         fetchDetailInfo();
     }, [contentid, contenttypeid]);
-
+    const handleReviewModalClose = () => {
+        fetchData('reviews', setReview, setError, setLoading, {ctypeid: contenttypeid, cid: contentid});
+        setReviewModalIsOpen(false);
+    }
     const handleFavoriteClick = (event, contentid, contentname) => {
         event.preventDefault(); // 클릭 시 기본 동작 방지 (옵션)
         setIsFavorite(prevIsFavorite => !prevIsFavorite);
@@ -296,7 +299,9 @@ function SpotInfoPage() {
             </main>
             <ReviewModal
                 isOpen={reviewModalIsOpen}
-                onClose={() => setReviewModalIsOpen(false)}
+                onClose={() => handleReviewModalClose()}
+                contentId={contentid}
+                contentTypeId={contenttypeid}
             />
         </div>
     );
