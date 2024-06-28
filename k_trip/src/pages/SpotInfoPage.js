@@ -93,6 +93,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -119,6 +122,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -168,6 +174,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -192,6 +201,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -213,6 +225,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -234,6 +249,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
