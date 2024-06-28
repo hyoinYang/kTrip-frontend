@@ -13,6 +13,7 @@ import TourCoursePage from "./pages/TourCoursePage";
 import LoginPage from "./pages/LoginPage";
 import MyPage from "./pages/MyPage";
 import SignUpPage from "./pages/SignUpPage";
+import ChangePassword from "./ChangePassword";
 
 Modal.setAppElement('#root');
 //Nav bar
@@ -31,6 +32,7 @@ root.render(
                 <Route path ='/course' element={<TourCoursePage/>} />
                 <Route path ='/login' element={<LoginPage/>} />
                 <Route path ='/signup' element={<SignUpPage/>} />
+                <Route path ='/mypage/password' element={<ChangePassword/>} />
             </Routes>
         </BrowserRouter>
 );
