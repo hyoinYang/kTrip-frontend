@@ -1,0 +1,107 @@
+.mypage-container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+span {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.top-title {
+  margin-top: 5px;
+  /* margin-bottom: 100px; */
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.mypage-container > div {
+  height: 500px;
+  background-color: rgb(234, 237, 244);
+  border-color: black;
+  border-width: 20px;
+  border-radius: 20px;
+  border: solid;
+  margin: 0px 20px;
+}
+
+.my-info-container,
+.saved-loc-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+
+  width: 200px;
+  height: 500px;
+}
+
+.my-review-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 500px;
+}
+
+.profile-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-top: 100px;
+  background-color: azure;
+}
+
+.user-email {
+  margin-bottom: 30px;
+}
+
+.review-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.comment-part {
+  background-color: white;
+  width: 400px;
+  height: 120px;
+}
+
+.control-part {
+  width: 400px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.control-part > button {
+  margin-left: 15px;
+}
+
+.date-info {
+  display: inline-block;
+}
+
+.delete-btn,
+.edit-btn {
+  /* font-weight: 600; */
+  font-size: 16px;
+  background-color: #3dd5f3;
+  border-radius: 7px;
+  border-style: none;
+}
+
+.delete-btn {
+  background-color: #ffa0a0;
+}
+
+.edit-btn:hover {
+  background-color: #04c4eb;
+}
+.delete-btn:hover {
+  background-color: #ff8686;
+}

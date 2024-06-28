@@ -6,10 +6,13 @@ import ReviewModal from "./modals/ReviewModal";
 import GuideModal from "./modals/GuideModal";
 import RecommendPage from "./pages/RecommendPage";
 import SpotInfoPage from "./pages/SpotInfoPage";
-import { Outlet } from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import LocationComponent from "./LocationComponent";
 import fetchData from "./fetchData";
+import Register from "./Register";
+import MyPage from "./MyPage";
 
+const URL = '/areaCode1';
 function Navbar() {
     const [locationModalIsOpen, setLocationModalIsOpen] = useState(false);
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
@@ -23,6 +26,7 @@ function Navbar() {
     const [selectedContentId, setSelectedContentId] = useState(null);
     const [selectedContentTypeId, setSelectedContentTypeId] = useState(null);
     const [location, setLocation] = useState(true);
+    const [selectedSignUp, setSelectedSignUp] = useState(false);
 
     const handleAreaSelect = (areaCode, sigunguCode, areaName, sigunguName) => {
         setSelectedAreaCode(areaCode);
@@ -48,6 +52,10 @@ function Navbar() {
         setSelectedAreaName(null);
         setSelectedSigunguName(null);
         setRecommendPageIsOpen(false);
+    };
+
+    const closeSignUpModal = () => {
+        setSelectedSignUp(false); // 모달 닫기
     };
 
     return (
@@ -168,6 +176,12 @@ function Navbar() {
                     isOpen={reviewModalIsOpen}
                     onClose={() => setReviewModalIsOpen(false)}
                 />
+                {spotInfoPageIsOpen && (
+                    <SpotInfoPage
+                        contentid={selectedContentId}
+                        contenttypeid={selectedContentTypeId}
+                    />
+                )}
                 <GuideModal
                     isOpen={guideModalIsOpen}
                     onClose={() => setGuideModalIsOpen(false)}
@@ -180,12 +194,6 @@ function Navbar() {
                         sigunguname={selectedSigunguName}
                         onItemClick={handleItemClick}
                         onClose={handleCloseRecommendPage}
-                    />
-                )}
-                {spotInfoPageIsOpen && (
-                    <SpotInfoPage
-                        contentid={selectedContentId}
-                        contenttypeid={selectedContentTypeId}
                     />
                 )}
             </div>
