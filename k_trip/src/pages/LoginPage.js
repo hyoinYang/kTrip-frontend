@@ -7,23 +7,23 @@ function LoginPage(){
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const navigate = useNavigate(); // useNavigate 훅 사용
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        try {
-            setLoading(true);
-            const params = {
+        setLoading(true);
+        const params = {
                 id: id,
                 password: password
-            };
+        };
 
-            const responseData = await postData('signIn', setLoading, params);
-            console.log('Login successful:', responseData);
-            // 리다이렉션 처리
-            navigate('/'); // 로그인 성공 시 '/' 경로로 이동
-        } catch (error) {
-            console.error('Error:', error);
+        const responseData = await postData('signIn', setLoading, setError, params);
+        if (responseData.error) {
+                alert('로그인 실패');
+        }
+        else {
+                navigate('/'); // 로그인 성공 시 '/' 경로로 이동
         }
     };
 
