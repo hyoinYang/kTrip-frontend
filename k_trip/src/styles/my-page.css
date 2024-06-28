@@ -5,7 +5,6 @@
   justify-content: space-between; /* Distribute space between items */
   align-items: flex-start; /* Align items at the start of the container */
   padding: 20px;
-  margin-top: 60px;
   background-color: #f5f5f5;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -15,7 +14,6 @@
 .saved-loc-container {
   width: 20%; /* Adjust the width as needed */
   margin-right: 10px;
-  width: 300px;
 }
 
 .my-review-container {
@@ -23,7 +21,6 @@
   max-height: 300px; /* Set a fixed height for the review container */
   overflow-y: auto; /* Enable vertical scrolling */
   padding-right: 10px; /* To avoid content being hidden under scrollbar */
-  width: 400px;
 }
 
 .my-info-container {
@@ -49,7 +46,7 @@
 }
 
 .change-user-info-btn,
-.change-password-btn {
+.my-info-container a {
   margin-top: 10px;
   background-color: #4caf50;
   color: white;
@@ -59,11 +56,10 @@
   padding: 10px 20px;
   text-decoration: none;
   text-align: center;
-  width: 160px;
 }
 
 .change-user-info-btn:hover,
-.change-password-btn:hover {
+.my-info-container a:hover {
   background-color: #45a049;
 }
 

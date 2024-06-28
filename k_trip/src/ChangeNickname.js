@@ -10,7 +10,6 @@ const ChangeNickname = () => {
     e.preventDefault();
 
     try {
-      // 서버 응답 연결
       const response = await fetch("/mypage/nickname", {
         method: "PUT",
         headers: {

@@ -11,7 +11,7 @@ const MyPageReviewItem = ({ name, rating, comment, date }) => {
       </div>
       <div className="control-part">
         <span className="date-info">{date}</span>
-        {/* <button className="edit-btn">수정</button> */}
+        <button className="edit-btn">수정</button>
         <button className="delete-btn">삭제</button>
       </div>
     </div>

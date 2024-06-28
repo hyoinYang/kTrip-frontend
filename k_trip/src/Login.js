@@ -17,8 +17,9 @@ const Login = () => {
     e.preventDefault();
     console.log("User Logged In:", formData);
 
-    // 서버 응답 연결
-    fetch("/login", {
+    // post_url에 맞게 서버에 fetch 한다.
+    const post_url = ""; // post_url에 POST할 url을 입력한다.
+    fetch(post_url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -34,6 +35,7 @@ const Login = () => {
 
   const handleFindPassword = () => {
     alert("Redirect to find password page");
+    // Add the logic to redirect to the find password page
   };
 
   return (
@@ -70,9 +72,9 @@ const Login = () => {
           로그인
         </button>
       </form>
-      {/* <button onClick={handleFindPassword} className="login-secondary-button">
+      <button onClick={handleFindPassword} className="login-secondary-button">
         비밀번호 찾기
-      </button> */}
+      </button>
       <button onClick={handleSignup} className="login-secondary-button">
         회원가입
       </button>

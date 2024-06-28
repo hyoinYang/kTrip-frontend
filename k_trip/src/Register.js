@@ -24,14 +24,14 @@ const Register = () => {
     }
     console.log("User Registered:", formData);
 
-    // 서버 응답 연결
-    const post_url = "/signUp";
+    // post_url에 맞게 서버에 fetch 한다.
+    const post_url = "signUp"; // post_url에 POST할 url을 입력한다.
     fetch(post_url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     }).then(() => {
-      console.log("Successfully signed up!");
+      console.log("Successfully posted");
     });
   };
 

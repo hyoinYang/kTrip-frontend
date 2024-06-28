@@ -21,7 +21,7 @@
 
 .edit-btn,
 .delete-btn {
-  background-color: #ff9b7f;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 5px;
@@ -32,5 +32,5 @@
 
 .edit-btn:hover,
 .delete-btn:hover {
-  background-color: #ff7c57;
+  background-color: #45a049;
 }
