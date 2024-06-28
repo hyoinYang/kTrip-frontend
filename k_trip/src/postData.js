@@ -4,17 +4,27 @@ const baseURL = 'http://localhost:8080/';
 
 const postData = async (endpoint, setLoading, setError, params) => {
     try {
+
         setLoading(true);
         setError(false);
         const url = `${baseURL}${endpoint}`;
-
+        console.log(url);
+        console.log(params);
         let response;
         if (endpoint === 'signIn' || endpoint === 'signUp') {
             response = await axios.post(url, params, {
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                withCredentials: true
+                }
+            });
+        }
+        else if (endpoint.startsWith('mypage')) {
+            const accessToken = localStorage.getItem('accessToken');
+            response = await axios.post(url, params, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : `${accessToken}`
+                }
             });
         } else {
             response = await axios.post(url, null, {
@@ -30,6 +40,7 @@ const postData = async (endpoint, setLoading, setError, params) => {
                 localStorage.setItem('accessToken', accessToken);
             }
         }
+
 
         return response.data;
     } catch (error) {
