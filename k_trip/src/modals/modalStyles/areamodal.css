@@ -1,7 +1,7 @@
-
+/* 기존 스타일 */
 .ReactModal__Content {
     width: 40%;
-    height: 40%;
+    height: 50%;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
@@ -43,3 +43,32 @@
     font-weight: 500;
 }
 
+/* 새로운 스타일 */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+header, main, footer {
+    padding: 20px;
+    text-align: center;
+}
+
+header>button {
+    background-color: #f8f9fa;
+    display: flex;
+    flex:1;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    flex: 1;
+    background-color: #e9ecef;
+}
+
+footer {
+    background-color: #f8f9fa;
+}
