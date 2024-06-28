@@ -13,6 +13,7 @@ function SignUpPage(){
     });
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const navigate = useNavigate(); // useNavigate 훅 사용
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +23,7 @@ function SignUpPage(){
         event.preventDefault();
         try {
             setLoading(true);
-            const responseData = await postData('signUp', setLoading, formData);
+            const responseData = await postData('signUp', setLoading, setError, formData);
             console.log('SignUp successful:', responseData);
             navigate('/');
         } catch (error) {

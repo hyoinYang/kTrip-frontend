@@ -43,7 +43,7 @@ function SpotInfoPage() {
         setIsFavorite(prevIsFavorite => !prevIsFavorite);
         console.log(typeof contentid);
         const toggleValue = isFavorite ? 0 : 1;
-        postData('favorite/toggle', setLoading, {
+        postData('favorite/toggle', setLoading, setError, {
             cid: contentid,
             cname: contentname,
             toggleValue: toggleValue
