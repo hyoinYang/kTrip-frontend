@@ -2,9 +2,7 @@ import axios from "axios";
 
 const postReviewData = async (reviewData) => {
     try {
-        const accessToken = localStorage.getItem('accessToken'); // 로컬 스토리지에서 토큰 가져오기
-        console.log(reviewData);
-        console.log(accessToken);
+        const accessToken = localStorage.getItem('accessToken');
         const response = await axios.post(
             "http://localhost:8080/reviews/write" ,
             reviewData,
