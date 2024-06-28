@@ -6,7 +6,7 @@ const fetchData = async (endpoint, setData, setError, setLoading, params) => {
     try {
         setError(null);
         setLoading(true);
-        if(endpoint === 'signIn' || endpoint === 'mypage'){
+        if(endpoint === 'signIn' || endpoint.startsWith('mypage')){
             const accessToken = localStorage.getItem('accessToken');
             const response = await axios.get(`${baseURL}${endpoint}`, {
                 params,
@@ -33,5 +33,4 @@ const fetchData = async (endpoint, setData, setError, setLoading, params) => {
         setLoading(false);
     }
 };
-const accessToken = document.Authorization
 export default fetchData;
