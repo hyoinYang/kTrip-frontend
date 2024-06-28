@@ -19,7 +19,12 @@ function Navbar() {
         const keyword = formData.get('keyword'); // 폼 데이터에서 검색어 추출
         navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=1`);
     };
-
+    const handleLoginClick = () => {
+        navigate('/login');
+    };
+    const handleSignUpClick = () => {
+        navigate('/signup');
+    };
     return (
         <>
             <div className="App">
@@ -53,12 +58,20 @@ function Navbar() {
                                         지역
                                     </button>
                                 </li>
-                                <li className="nav-item nav-element">
+                                <li className="nav-item">
                                     <button
-                                        className="nav-link active btn btn-info"
-                                        aria-current="page"
+                                        className="nav-link btn btn-info"
+                                        onClick={() => handleLoginClick()}
                                     >
-                                        유형
+                                        로그인
+                                    </button>
+                                </li>
+                                <li className="nav-item">
+                                    <button
+                                        className="nav-link btn btn-info"
+                                        onClick={() => handleSignUpClick()}
+                                    >
+                                        회원가입
                                     </button>
                                 </li>
                                 <li className="nav-item dropdown nav-element">
@@ -102,25 +115,25 @@ function Navbar() {
                                     </button>
                                 </li>
                             </ul>
-                                <form className="d-flex"
-                                      role="search"
-                                      action="/trip/search"
-                                      method = "GET"
-                                      onSubmit={handleSearchSubmit}>
-                                    <input
-                                        className="form-control me-2"
-                                        type="search"
-                                        placeholder="Search"
-                                        aria-label="Search"
-                                        name="keyword"
-                                    />
-                                    <button
-                                        className="btn btn-outline-success search_btn"
-                                        type="submit"
-                                    >
-                                        Search
-                                    </button>
-                                </form>
+                            <form className="d-flex"
+                                  role="search"
+                                  action="/trip/search"
+                                  method = "GET"
+                                  onSubmit={handleSearchSubmit}>
+                                <input
+                                    className="form-control me-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                    name="keyword"
+                                />
+                                <button
+                                    className="btn btn-outline-success search_btn"
+                                    type="submit"
+                                >
+                                    Search
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </nav>
