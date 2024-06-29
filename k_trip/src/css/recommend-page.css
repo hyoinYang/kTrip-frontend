@@ -39,12 +39,16 @@
   margin-top: 10px;
 }
 
-.recommendation-list {
+body :not(.spot-info-page) > .page-content > .recommendation-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.recommendation-item {
+body
+  :not(.spot-info-page)
+  > .page-content
+  > .recommendation-list
+  > .recommendation-item {
   height: 100px;
   display: flex;
   justify-content: center;
