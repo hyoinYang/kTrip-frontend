@@ -12,13 +12,12 @@ function SpotInfoPage() {
     const searchParams = new URLSearchParams(location.search);
     const contentid = searchParams.get('cid');
     const contenttypeid = searchParams.get('ctypeid');
-    const title = searchParams.get('title');
     const [data, setData] = useState([]);
     const [review, setReview] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [favorite, setFavorite] = useState([]);
+    const [loading, setLoading] = useState(null);
     const [error, setError] = useState(null);
-    const [page, setPage] = useState(1);
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(null);
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
 
     useEffect(() => {
@@ -28,25 +27,30 @@ function SpotInfoPage() {
                 await fetchData('trip/detailinfo', setData, setError, setLoading, { contentid, contenttypeid });
                 await fetchData('reviews', setReview, setError, setLoading, {ctypeid: contenttypeid, cid: contentid});
             } catch (e) {
-                setError(e.message);
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        };
+        const fetchFavoriteInfo = async () => {
+            try {
+                setLoading(true);
+                const response = await fetchData('favorite/load', setFavorite, setError, setLoading, {cid: contentid});
+                console.log('Response from fetchData:', response);
+                if (response.data === true) {
+                    setIsFavorite(true);
+                } else {
+                    setIsFavorite(false);
+                }
+            } catch (e) {
+                setError(true);
             } finally {
                 setLoading(false);
             }
         };
         fetchDetailInfo();
+        fetchFavoriteInfo();
     }, [contentid, contenttypeid]);
-    useEffect(() => {
-        const checkFavoriteStatus = async () => {
-            try {
-                const response = await fetchData('loadFavoriteSpot', setData, setError, setLoading);
-                const favoriteSpots = response.data;
-                setIsFavorite(favoriteSpots.some(fav => fav.cid === contentid));
-            } catch (e) {
-                setError(e.message);
-            }
-        };
-        checkFavoriteStatus();
-    }, [contentid]);
 
 
 
@@ -66,7 +70,7 @@ function SpotInfoPage() {
 
 
         } catch (e) {
-            setError(e.message);
+            setError(true);
         }
     };
     const handleCourseClick = (contentid, contenttypeid, title) =>{
@@ -296,19 +300,20 @@ function SpotInfoPage() {
         if (contentTypeComponent) {
             return contentTypeComponent(item);
         }
-        return null; // 해당하는 contenttypeid에 대한 처리가 없을 경우 null을 반환하거나 다른 처리 방법을 사용할 수 있음
+        return null;
     };
 
     return (
         <div className="spot-info-page">
             <main className="page-content">
-                {error && <p>Error: {error}</p>}
-                {loading && <p>Loading...</p>}
-                {!loading && !error && data.length === 0 && <p>정보가 없습니다.</p>}
+                {loading && <p>잠시만 기다려주세요</p>}
                 {!loading && !error && data.length > 0 && (
                     <div className="recommendation-list">
                         {data.map(item => renderContent(item))}
                     </div>
+                )}
+                {!loading && !error && data.length === 0 && (
+                    <p>정보가 없습니다.</p>
                 )}
                 {!loading && !error && review.length === 0 && <p>작성된 리뷰가 없습니다.</p>}
                 {!loading && !error && review.length > 0 && (
