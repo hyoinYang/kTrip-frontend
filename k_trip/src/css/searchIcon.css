@@ -1,0 +1,58 @@
+.main-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    /*height: calc(100vh - 56px); !* 네비게이션 바 높이를 고려하여 전체 높이에서 빼줍니다 *!*/
+    padding-top: 80px; /* 네비게이션 바와 충분한 여백을 주기 위해 상단 패딩을 추가합니다 */
+}
+
+.main-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.main-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.search-form {
+    width: 100%;
+    max-width: 600px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.main-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 20vh; /* 화면 상단에서 20% 위치에 제목을 배치 */
+    animation: fadeInUp 1s ease-out forwards; /* fadeInUp 애니메이션 적용 */
+}
+
+.main-subtitle {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 2rem; /* 부제목과 제목 사이 간격 */
+    opacity: 0; /* 초기에 부제목은 투명 상태로 시작 */
+    animation: fadeInUp 1s ease-out forwards; /* fadeInUp 애니메이션 적용 */
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px); /* 아래로 20px 이동 */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* 초기 위치 */
+    }
+}
+

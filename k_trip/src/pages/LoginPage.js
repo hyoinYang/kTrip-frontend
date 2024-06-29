@@ -55,7 +55,6 @@ function LoginPage(){
                 {/* X 아이콘을 우측 상단에 위치시킨 닫기 버튼 */}
                 <button onClick={handleCloseSignup} className="close"></button>
             </div>
-            <h2 className="login-title">Login</h2>
             {!isValid && (
                 <form onSubmit={handleSubmit}>
                     <div>
