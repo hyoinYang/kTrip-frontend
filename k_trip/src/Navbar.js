@@ -6,6 +6,8 @@ import AreaModal from "./modals/AreaModal";
 import GuideModal from "./modals/GuideModal";
 import { Outlet } from "react-router-dom";
 import LocationComponent from "./LocationComponent";
+import './css/button.css'
+import { FiUser } from "react-icons/fi"; // FiUser 아이콘 임포트
 
 function Navbar() {
 
@@ -29,6 +31,10 @@ function Navbar() {
     };
     const handleSignUpClick = () => {
         navigate('/signup');
+    };
+
+    const handleMyPageClick = () => {
+        navigate('/MyPage');
     };
     return (
         <>
@@ -77,6 +83,14 @@ function Navbar() {
                                         onClick={() => handleSignUpClick()}
                                     >
                                         회원가입
+                                    </button>
+                                </li>
+                                <li className="nav-item">
+                                    <button
+                                        className="nav-link btn btn-info"
+                                        onClick={handleMyPageClick}
+                                    >
+                                        <FiUser className="icon" />
                                     </button>
                                 </li>
                                 <li className="nav-item dropdown nav-element">
