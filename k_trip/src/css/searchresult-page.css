@@ -1,10 +1,3 @@
-.page-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 .button-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -37,16 +30,4 @@
 
 .page-input {
   margin-top: 10px;
-}
-
-.recommendation-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.recommendation-item {
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
