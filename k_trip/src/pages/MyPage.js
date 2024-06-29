@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./my-page.css";
 import fetchData from "../fetchData";
-
+import checkTokenValidity from '../CheckToken';
 function MyPage(){
     const navigate = useNavigate();
     const [data, setData] = useState([]);
@@ -17,7 +17,7 @@ function MyPage(){
     const handleChangePasswordClick = () => {
         return navigate("/mypage/password");
     };
-
+    checkTokenValidity();
 
     useEffect(() => {
         const token = localStorage.getItem("accessToken");

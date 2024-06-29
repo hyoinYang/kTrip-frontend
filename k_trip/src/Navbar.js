@@ -30,7 +30,11 @@ function Navbar() {
 
     // 컴포넌트가 마운트될 때 로그인 상태 확인
     useEffect(() => {
-        const token = localStorage.getItem('accessToken');
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('token')){
+            localStorage.setItem('accessToken', urlParams.get('token'))
+        }
+        const token = localStorage.getItem('accessToken') || urlParams.get('token');
         setIsLoggedIn(!!token); // 토큰이 있으면 true, 없으면 false 설정
     }, []);
 

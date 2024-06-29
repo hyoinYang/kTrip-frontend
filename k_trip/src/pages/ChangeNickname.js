@@ -3,7 +3,8 @@ import "../styles/change-password.css";
 import postData from "../postData";
 import {useNavigate} from "react-router-dom";
 import fetchData from "../fetchData";
-
+import axios from "axios";
+import checkTokenValidity from '../CheckToken';
 const ChangeNickname = () => {
     const navigate = useNavigate();
     const [currentNickname, setCurrentNickname] = useState("");
@@ -12,6 +13,8 @@ const ChangeNickname = () => {
     const [data, setData] = useState("");
     const [loading, setLoading] = useState("");
     const [error, setError] = useState("");
+    const [authToken, setAuthToken] = useState(localStorage.getItem('accessToken') || '');
+    // 토큰 시간 유효성 검사 함수
 
 
     useEffect(() => {
@@ -19,6 +22,7 @@ const ChangeNickname = () => {
     }, []);
     useEffect(() => {
         // Ensure data is not empty and has the nickname field
+        checkTokenValidity();
         if (data && data.nickname) {
             setCurrentNickname(data.nickname);
         }
@@ -38,6 +42,7 @@ const ChangeNickname = () => {
         else {
             navigate('/mypage'); // 로그인 성공 시 '/' 경로로 이동
         }
+
     };
 
     return (

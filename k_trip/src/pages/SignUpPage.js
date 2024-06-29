@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import postData from "../postData";
 import {useNavigate} from "react-router-dom";
@@ -19,6 +19,9 @@ function SignUpPage(){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const navigate = useNavigate(); // useNavigate 훅 사용
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -37,13 +40,14 @@ function SignUpPage(){
 
     const handleNaverLogin = (event) => {
         event.preventDefault();
+        // 네이버 로그인 페이지로 리다이렉트
         window.location.href = 'http://localhost:8080/login/oauth2';
+        navigate('/')
     };
 
     const handleCloseSignup = () => {
         navigate('/');
     };
-
     return (
         <div className="register-container">
             <h2 className="register-title">K-Trip 회원 가입</h2>
