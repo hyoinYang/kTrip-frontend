@@ -6,7 +6,8 @@ const fetchData = async (endpoint, setData, setError, setLoading, params) => {
     try {
         setError(null);
         setLoading(true);
-        if(endpoint === 'signIn' || endpoint.startsWith('mypage')){
+        if(endpoint === 'signIn' || endpoint.startsWith('mypage') || endpoint.startsWith('favorite')){
+
             const accessToken = localStorage.getItem('accessToken');
             const response = await axios.get(`${baseURL}${endpoint}`, {
                 params,
@@ -17,7 +18,8 @@ const fetchData = async (endpoint, setData, setError, setLoading, params) => {
                 withCredentials: true
             });
             const dataArray = response.data;
-            setData(dataArray); // 상태 업데이트
+            setData(dataArray);
+            return response;
         }
         else{
             const response = await axios.get(`${baseURL}${endpoint}`, { params });
