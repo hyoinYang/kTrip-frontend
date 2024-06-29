@@ -27,7 +27,7 @@ root.render(
         <BrowserRouter>
             <Navbar/>
             <Routes>
-                <Route path='/'></Route>
+                <Route path='/'/>
                 <Route path='/token' element={<TokenSetter/>}/>
                 <Route path='/MyPage' element={<MyPage/>}/>
                 <Route path='/recommend/area' element={<RecommendPage/>} />

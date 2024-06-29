@@ -1,0 +1,33 @@
+.button-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.most-front-btn,
+.most-back-btn,
+.prev-btn,
+.next-btn {
+  width: 120px;
+  height: 40px;
+}
+
+.pg-num-btn,
+.curr-pg {
+  width: 45px;
+  height: 40px;
+  margin: 0px 5px;
+}
+
+.curr-pg {
+  font-weight: bolder;
+}
+
+.page-input {
+  margin-top: 10px;
+}

@@ -38,3 +38,19 @@
 .page-input {
   margin-top: 10px;
 }
+
+body :not(.spot-info-page) > .page-content > .recommendation-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+body
+  :not(.spot-info-page)
+  > .page-content
+  > .recommendation-list
+  > .recommendation-item {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
