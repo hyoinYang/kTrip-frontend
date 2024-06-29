@@ -3,6 +3,7 @@ import fetchData from "./fetchData";
 import SpotInfoPage from "./pages/SpotInfoPage";
 import RecommendPage from "./pages/RecommendPage";
 import {useNavigate} from "react-router-dom";
+import "./css/button.css";
 
 const LocationComponent = ({isLocation}) => {
     console.log("locationcomponent: ", isLocation);
@@ -25,6 +26,7 @@ const LocationComponent = ({isLocation}) => {
 
     console.log("isAgree: ", isAgree);
     const handleItemClick = (contentid, contenttypeid, title) => {
+        setRecommendPageIsOpen(false);
         navigate(`/spotinfo?cid=${contentid}&ctypeid=${contenttypeid}&title=${title}`);
     };
     useEffect(() => {
@@ -64,7 +66,9 @@ const LocationComponent = ({isLocation}) => {
                             {
                                 data.map((item) => (
                                     <div key={item.contentid} className="recommendation-item">
-                                        <button onClick={() => handleItemClick(item.contentid, item.contenttypeid)}>
+                                        <button
+                                            className="button button--size-m button--text-medium bg-1 button--winona"
+                                            onClick={() => handleItemClick(item.contentid, item.contenttypeid)}>
                                             {item.title}
                                         </button>
                                     </div>
@@ -86,4 +90,4 @@ const LocationComponent = ({isLocation}) => {
 
 
 
-    export default LocationComponent;
+export default LocationComponent;

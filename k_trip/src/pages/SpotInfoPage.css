@@ -74,6 +74,9 @@
 .favorite-button.favorite {
     color: yellow;
 }
+.course-name{
+    font-size: 24px;
+}
 @font-face {
     font-family: "KimjungchulMyungjo-Regular";
     font-width: normal;

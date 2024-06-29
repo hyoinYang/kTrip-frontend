@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
-import postReviewData from "../postReivewData";
+import postReviewData from "../postReviewData"
 import Modal from 'react-modal';
 import '../index.css';
 
@@ -8,6 +8,10 @@ const MAX_STARS = 5;
 
 
 const customModalStyles = {
+    overlay: {
+
+        zIndex: 1000
+    },
     content: {
         top: '50%',
         left: '50%',
@@ -20,7 +24,7 @@ const customModalStyles = {
     }
 };
 
-const ReviewModal = ({ isOpen, onClose }) => {
+const ReviewModal = ({ isOpen, onClose, contentId, contentTypeId }) => {
     const [point, setPoint] = useState(5);
     const [content, setContent] = useState(null);
 
@@ -37,15 +41,17 @@ const ReviewModal = ({ isOpen, onClose }) => {
     const handleSubmit = async () => {
         const reviewData = {
             point: point,
-            content: content
+            content: content,
+            cid: contentId,
+            ctypeid: contentTypeId
         };
 
         try {
             await postReviewData(reviewData);
-            console.log('리뷰 등록 성공');
+            alert('리뷰가 정상적으로 등록되었습니다.');
             handleClose();
         } catch (error) {
-            console.error('리뷰 등록 실패:', error);
+            console.error('리뷰 등록에 실패했습니다.', error);
         }
     };
 

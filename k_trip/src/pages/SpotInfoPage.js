@@ -12,13 +12,12 @@ function SpotInfoPage() {
     const searchParams = new URLSearchParams(location.search);
     const contentid = searchParams.get('cid');
     const contenttypeid = searchParams.get('ctypeid');
-    const title = searchParams.get('title');
     const [data, setData] = useState([]);
     const [review, setReview] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [favorite, setFavorite] = useState([]);
+    const [loading, setLoading] = useState(null);
     const [error, setError] = useState(null);
-    const [page, setPage] = useState(1);
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(null);
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
 
     useEffect(() => {
@@ -28,24 +27,51 @@ function SpotInfoPage() {
                 await fetchData('trip/detailinfo', setData, setError, setLoading, { contentid, contenttypeid });
                 await fetchData('reviews', setReview, setError, setLoading, {ctypeid: contenttypeid, cid: contentid});
             } catch (e) {
-                setError(e.message);
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        };
+        const fetchFavoriteInfo = async () => {
+            try {
+                setLoading(true);
+                const response = await fetchData('favorite/load', setFavorite, setError, setLoading, {cid: contentid});
+                console.log('Response from fetchData:', response);
+                if (response.data === true) {
+                    setIsFavorite(true);
+                } else {
+                    setIsFavorite(false);
+                }
+            } catch (e) {
+                setError(true);
             } finally {
                 setLoading(false);
             }
         };
         fetchDetailInfo();
+        fetchFavoriteInfo();
     }, [contentid, contenttypeid]);
 
-    const handleFavoriteClick = (event, contentid, contentname) => {
-        event.preventDefault(); // 클릭 시 기본 동작 방지 (옵션)
-        setIsFavorite(prevIsFavorite => !prevIsFavorite);
-        console.log(typeof contentid);
-        const toggleValue = isFavorite ? 0 : 1;
-        postData('favorite/toggle', setLoading, {
-            cid: contentid,
-            cname: contentname,
-            toggleValue: toggleValue
-        });
+
+
+    const handleReviewModalClose = () => {
+        fetchData('reviews', setReview, setError, setLoading, {ctypeid: contenttypeid, cid: contentid});
+        setReviewModalIsOpen(false);
+    }
+    const handleFavoriteClick = async (event) => {  // 즐겨찾기 상태를 토글하는 함수 추가
+        event.preventDefault();
+        const toggleValue = isFavorite ? 0 : 1;  // 현재 상태에 따라 토글 값 설정
+        try {
+            await postData('favorite/toggle', setLoading, setError, {
+                cid: contentid,
+                toggle: toggleValue
+            });
+            setIsFavorite(!isFavorite);  // 상태를 반전하여 업데이트
+
+
+        } catch (e) {
+            setError(true);
+        }
     };
     const handleCourseClick = (contentid, contenttypeid, title) =>{
         navigate(`/course?cid=${contentid}&ctypeid=${contenttypeid}&title=${title}`);
@@ -94,6 +120,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -120,6 +149,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -169,6 +201,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -193,6 +228,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -214,6 +252,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -235,6 +276,9 @@ function SpotInfoPage() {
                 </div>
                 <div className="item-header">
                     <h2>{item.title}</h2>
+                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
+                        리뷰 쓰기
+                    </button>
                     <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
                         <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
                     </button>
@@ -256,19 +300,20 @@ function SpotInfoPage() {
         if (contentTypeComponent) {
             return contentTypeComponent(item);
         }
-        return null; // 해당하는 contenttypeid에 대한 처리가 없을 경우 null을 반환하거나 다른 처리 방법을 사용할 수 있음
+        return null;
     };
 
     return (
         <div className="spot-info-page">
             <main className="page-content">
-                {error && <p>Error: {error}</p>}
-                {loading && <p>Loading...</p>}
-                {!loading && !error && data.length === 0 && <p>정보가 없습니다.</p>}
+                {loading && <p>잠시만 기다려주세요</p>}
                 {!loading && !error && data.length > 0 && (
                     <div className="recommendation-list">
                         {data.map(item => renderContent(item))}
                     </div>
+                )}
+                {!loading && !error && data.length === 0 && (
+                    <p>정보가 없습니다.</p>
                 )}
                 {!loading && !error && review.length === 0 && <p>작성된 리뷰가 없습니다.</p>}
                 {!loading && !error && review.length > 0 && (
@@ -279,7 +324,9 @@ function SpotInfoPage() {
             </main>
             <ReviewModal
                 isOpen={reviewModalIsOpen}
-                onClose={() => setReviewModalIsOpen(false)}
+                onClose={() => handleReviewModalClose()}
+                contentId={contentid}
+                contentTypeId={contenttypeid}
             />
         </div>
     );
