@@ -20,6 +20,7 @@ function SpotInfoPage() {
     const [page, setPage] = useState(1);
     const [isFavorite, setIsFavorite] = useState(false);
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
+
     useEffect(() => {
         const fetchDetailInfo = async () => {
             try {
@@ -34,20 +35,39 @@ function SpotInfoPage() {
         };
         fetchDetailInfo();
     }, [contentid, contenttypeid]);
+    useEffect(() => {
+        const checkFavoriteStatus = async () => {
+            try {
+                const response = await fetchData('loadFavoriteSpot', setData, setError, setLoading);
+                const favoriteSpots = response.data;
+                setIsFavorite(favoriteSpots.some(fav => fav.cid === contentid));
+            } catch (e) {
+                setError(e.message);
+            }
+        };
+        checkFavoriteStatus();
+    }, [contentid]);
+
+
+
     const handleReviewModalClose = () => {
         fetchData('reviews', setReview, setError, setLoading, {ctypeid: contenttypeid, cid: contentid});
         setReviewModalIsOpen(false);
     }
-    const handleFavoriteClick = (event, contentid, contentname) => {
-        event.preventDefault(); // 클릭 시 기본 동작 방지 (옵션)
-        setIsFavorite(prevIsFavorite => !prevIsFavorite);
-        console.log(typeof contentid);
-        const toggleValue = isFavorite ? 0 : 1;
-        postData('favorite/toggle', setLoading, setError, {
-            cid: contentid,
-            cname: contentname,
-            toggleValue: toggleValue
-        });
+    const handleFavoriteClick = async (event) => {  // 즐겨찾기 상태를 토글하는 함수 추가
+        event.preventDefault();
+        const toggleValue = isFavorite ? 0 : 1;  // 현재 상태에 따라 토글 값 설정
+        try {
+            await postData('favorite/toggle', setLoading, setError, {
+                cid: contentid,
+                toggle: toggleValue
+            });
+            setIsFavorite(!isFavorite);  // 상태를 반전하여 업데이트
+
+
+        } catch (e) {
+            setError(e.message);
+        }
     };
     const handleCourseClick = (contentid, contenttypeid, title) =>{
         navigate(`/course?cid=${contentid}&ctypeid=${contenttypeid}&title=${title}`);

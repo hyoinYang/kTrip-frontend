@@ -33,4 +33,5 @@ const fetchData = async (endpoint, setData, setError, setLoading, params) => {
         setLoading(false);
     }
 };
+
 export default fetchData;

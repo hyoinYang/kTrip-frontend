@@ -26,7 +26,17 @@ const postData = async (endpoint, setLoading, setError, params) => {
                     'Authorization' : `${accessToken}`
                 }
             });
-        } else {
+        }
+        else if (endpoint.startsWith('favorite')) {
+            const accessToken = localStorage.getItem('accessToken');
+            response = await axios.post(url, params, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : `${accessToken}`
+                }
+            });
+        }
+        else {
             response = await axios.post(url, null, {
                 params: params
             });
