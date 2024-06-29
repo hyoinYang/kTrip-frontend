@@ -17,8 +17,12 @@
 .login-title {
     margin-bottom: 20px;
     color: #333;
+    margin-right: auto; /* 버튼이 왼쪽으로 붙지 않도록 오른쪽 여백 확보 */
 }
-
+.login-header {
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬 */
+}
 
 .login-input {
     width: 100%;

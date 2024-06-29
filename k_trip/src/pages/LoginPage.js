@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'; // React Router의 useNavigate �
 import postData from "../postData"; // postData 함수 임포트
 import '../css/LoginPage.css';
 import naverLoginBtn from '../image/btnG_완성형.png';
+import '../css/button.css'
 import fetchData from "../fetchData";
 import TokenSetter from "./TokenSetter";
 function LoginPage(){
@@ -33,9 +34,17 @@ function LoginPage(){
         event.preventDefault();
         window.location.href = 'http://localhost:8080/login/oauth2';
     };
+
+    const handleCloseSignup = () => {
+        navigate('/');
+    };
     return (
         <div className="login-container">
-            <h2 className="login-title">Login</h2>
+            <div className="login-header">
+                <h2 className="login-title">Login</h2>
+                {/* X 아이콘을 우측 상단에 위치시킨 닫기 버튼 */}
+                <button onClick={handleCloseSignup} className="close"></button>
+            </div>
             <form onSubmit={handleSubmit}>
                 <div>
                     <input

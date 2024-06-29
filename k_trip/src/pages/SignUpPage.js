@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom";
 import '../css/SignUpPage.css';
 import '../css/SignUpPage.css';
 import naverLoginBtn from '../image/btnG_완성형.png';
+import '../css/button.css'
+import { useHistory } from "react-router-dom";
 function SignUpPage(){
     const [formData, setFormData] = useState({
         id: '',
@@ -38,9 +40,14 @@ function SignUpPage(){
         window.location.href = 'http://localhost:8080/login/oauth2';
     };
 
+    const handleCloseSignup = () => {
+        navigate('/');
+    };
+
     return (
         <div className="register-container">
             <h2 className="register-title">K-Trip 회원 가입</h2>
+            <button onClick={handleCloseSignup} className="close"></button>
             <form onSubmit={handleSubmit}>
                 <input type="text" name="id" className="register-label register-input" value={formData.id} onChange={handleChange} placeholder="아이디" required />
                 <input type="text" name="name" className="register-label register-input" value={formData.name} onChange={handleChange} placeholder="이름" required />
