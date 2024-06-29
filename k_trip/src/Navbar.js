@@ -111,7 +111,7 @@ function Navbar() {
                                         aria-current="page"
                                         onClick={handleUserLocationClick}
                                     >
-                                        위치
+                                        내 주변 여행지 보기
                                     </button>
                                 </li>
                                 {isLoggedIn ? (

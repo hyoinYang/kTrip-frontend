@@ -146,35 +146,35 @@
     cursor: pointer;
 }
 
-.close::before,
-.close::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 24px; /* 선의 길이 */
-    height: 2px; /* 선의 두께 */
-    background-color: #000; /* 선의 색상 */
-    transform-origin: center;
-    transition: transform 0.3s ease; /* 회전 애니메이션 추가 */
-}
+/*.close::before,*/
+/*.close::after {*/
+/*    content: '';*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    width: 24px; !* 선의 길이 *!*/
+/*    height: 2px; !* 선의 두께 *!*/
+/*    background-color: #000; !* 선의 색상 *!*/
+/*    transform-origin: center;*/
+/*    transition: transform 0.3s ease; !* 회전 애니메이션 추가 *!*/
+/*}*/
 
-.close::before {
-    transform: translate(-50%, -50%) rotate(0deg); /* 초기 회전 각도 설정 */
-}
+/*.close::before {*/
+/*    transform: translate(-50%, -50%) rotate(0deg); !* 초기 회전 각도 설정 *!*/
+/*}*/
 
-.close::after {
-    transform: translate(-50%, -50%) rotate(90deg); /* 초기 회전 각도 설정 */
-}
+/*.close::after {*/
+/*    transform: translate(-50%, -50%) rotate(90deg); !* 초기 회전 각도 설정 *!*/
+/*}*/
 
-.close:hover {
-    background-color: transparent; /* 호버 시 배경색 투명으로 설정 */
-}
+/*.close:hover {*/
+/*    background-color: transparent; !* 호버 시 배경색 투명으로 설정 *!*/
+/*}*/
 
-.close:hover::before,
-.close:hover::after {
-    transform: translate(-50%, -50%) rotate(180deg); /* 호버 시 회전 각도 설정 */
-}
+/*.close:hover::before,*/
+/*.close:hover::after {*/
+/*    transform: translate(-50%, -50%) rotate(180deg); !* 호버 시 회전 각도 설정 *!*/
+/*}*/
 
 
 

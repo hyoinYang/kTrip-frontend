@@ -7,6 +7,8 @@ import '../css/SignUpPage.css';
 import naverLoginBtn from '../image/btnG_완성형.png';
 import '../css/button.css'
 import { useHistory } from "react-router-dom";
+import {BsX} from "react-icons/bs";
+import {Button} from "react-bootstrap";
 function SignUpPage(){
     const [formData, setFormData] = useState({
         id: '',
@@ -19,6 +21,8 @@ function SignUpPage(){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const navigate = useNavigate(); // useNavigate 훅 사용
+    const [isHovered, setIsHovered] = useState(false); // 마우스 호버 여부 상태
+
 
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
@@ -51,7 +55,19 @@ function SignUpPage(){
     return (
         <div className="register-container">
             <h2 className="register-title">K-Trip 회원 가입</h2>
-            <button onClick={handleCloseSignup} className="close"></button>
+            <Button
+                variant="link"
+                className="close"
+                onClick={handleCloseSignup}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                style={{
+                    transition: 'transform 0.3s',
+                    transform: isHovered ? 'rotate(90deg)' : 'rotate(0deg)',
+                }}
+            >
+                <BsX className="icon" style={{ fontSize: '24px' }} />
+            </Button>
             <form onSubmit={handleSubmit}>
                 <input type="text" name="id" className="register-label register-input" value={formData.id} onChange={handleChange} placeholder="아이디" required />
                 <input type="text" name="name" className="register-label register-input" value={formData.name} onChange={handleChange} placeholder="이름" required />
