@@ -5,8 +5,11 @@ import postData from "../postData"; // postData 함수 임포트
 import '../css/LoginPage.css';
 import naverLoginBtn from '../image/btnG_완성형.png';
 import '../css/button.css'
+import { BsX } from 'react-icons/bs'; // Bootstrap Icons에서 X 아이콘 임포트
 import fetchData from "../fetchData";
 import TokenSetter from "./TokenSetter";
+import { Button } from 'react-bootstrap'; // React Bootstrap에서 Button 컴포넌트 임포트
+
 function LoginPage(){
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
@@ -14,6 +17,8 @@ function LoginPage(){
     const [error, setError] = useState(false);
     const [isValid, setIsValid] = useState(null);
     const navigate = useNavigate(); // useNavigate 훅 사용
+    const [isHovered, setIsHovered] = useState(false); // 마우스 호버 여부 상태
+
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
         if (token) {
@@ -54,7 +59,19 @@ function LoginPage(){
             <div className="login-header">
                 <h2 className="login-title">Login</h2>
                 {/* X 아이콘을 우측 상단에 위치시킨 닫기 버튼 */}
-                <button onClick={handleCloseSignup} className="close"></button>
+                <Button
+                    variant="link"
+                    className="close"
+                    onClick={handleCloseSignup}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    style={{
+                        transition: 'transform 0.3s',
+                        transform: isHovered ? 'rotate(90deg)' : 'rotate(0deg)',
+                    }}
+                >
+                    <BsX className="icon" style={{ fontSize: '24px' }} />
+                </Button>
             </div>
             {!isValid && (
                 <form onSubmit={handleSubmit}>
