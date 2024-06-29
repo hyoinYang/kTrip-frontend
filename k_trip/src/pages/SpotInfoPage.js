@@ -5,7 +5,7 @@ import "./SpotInfoPage.css";
 import {FaStar} from "react-icons/fa";
 import {useLocation, useNavigate} from "react-router-dom";
 import ReviewModal from "../modals/ReviewModal";
-
+import checkTokenValidity from '../CheckToken';
 function SpotInfoPage() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -19,9 +19,10 @@ function SpotInfoPage() {
     const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(null);
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
-
+    checkTokenValidity();
     useEffect(() => {
         const fetchDetailInfo = async () => {
+
             try {
                 setLoading(true);
                 await fetchData('trip/detailinfo', setData, setError, setLoading, { contentid, contenttypeid });
@@ -59,7 +60,9 @@ function SpotInfoPage() {
         setReviewModalIsOpen(false);
     }
     const handleFavoriteClick = async (event) => {  // 즐겨찾기 상태를 토글하는 함수 추가
+
         event.preventDefault();
+
         const toggleValue = isFavorite ? 0 : 1;  // 현재 상태에 따라 토글 값 설정
         try {
             await postData('favorite/toggle', setLoading, setError, {
