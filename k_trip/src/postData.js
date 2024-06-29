@@ -4,6 +4,7 @@ const baseURL = 'http://localhost:8080/';
 
 const postData = async (endpoint, setLoading, setError, params) => {
     try {
+
         setLoading(true);
         setError(false);
         const url = `${baseURL}${endpoint}`;
@@ -16,15 +17,18 @@ const postData = async (endpoint, setLoading, setError, params) => {
                     'Content-Type': 'application/json'
                 }
             });
-        } else if (endpoint.startsWith('mypage') || endpoint.startsWith('favorite')) {
+        }
+        else if (endpoint.startsWith('mypage') || endpoint.startsWith('favorite') || endpoint === 'logout') {
             const accessToken = localStorage.getItem('accessToken');
+            console.log(accessToken);
             response = await axios.post(url, params, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `${accessToken}`
+                    'Authorization' : `${accessToken}`
                 }
             });
-        } else {
+        }
+        else {
             response = await axios.post(url, null, {
                 params: params
             });
@@ -40,6 +44,7 @@ const postData = async (endpoint, setLoading, setError, params) => {
                 localStorage.setItem('tokenIssueTime', currentTime);
             }
         }
+
 
         return response.data;
     } catch (error) {

@@ -9,6 +9,7 @@ function MyPage(){
     const [myReview, setMyReview] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [valid, setIsValid] = useState(null);
 
     const handleChangeNicknameClick = () => {
         return navigate("/mypage/nickname");
@@ -17,33 +18,47 @@ function MyPage(){
         return navigate("/mypage/password");
     };
 
+
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                setLoading(true);
-                const response = await fetchData('mypage', setData, setError, setLoading, {});
-                console.log("Data fetched:", response);
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        const fetchMyReviewData = async () => {
-            try {
-                setLoading(true);
-                const response = await fetchData('mypage/review', setMyReview, setError, setLoading, {});
-                console.log("Data fetched:", response);
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchUserData();
-        fetchMyReviewData();
-        console.log(myReview);
-    }, [setData, setLoading, setError]); // 상태 변경에 따라 fetchData를 다시 호출
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            navigate('/login');
+        } else {
+            setIsValid(true);
+        }
+    }, [navigate]);
+
+    useEffect(() => {
+        if (valid) {
+            const fetchUserData = async () => {
+                try {
+                    setLoading(true);
+                    const response = await fetchData('mypage', setData, setError, setLoading, {});
+                    console.log("Data fetched:", response);
+                } catch (error) {
+                    setError(error);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            const fetchMyReviewData = async () => {
+                try {
+                    setLoading(true);
+                    const response = await fetchData('mypage/review', setMyReview, setError, setLoading, {});
+                    console.log("Data fetched:", response);
+                } catch (error) {
+                    setError(error);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            fetchUserData();
+            fetchMyReviewData();
+        }
+    }, [valid, setData, setLoading, setError, setMyReview]);
 
     return (
         <div className="mypage-container">

@@ -15,6 +15,8 @@ import MyPage from "./pages/MyPage";
 import SignUpPage from "./pages/SignUpPage";
 import ChangePassword from "./pages/ChangePassword";
 import ChangeNickname from "./pages/ChangeNickname";
+import RedirectHandler from "./pages/TokenSetter";
+import TokenSetter from "./pages/TokenSetter";
 
 Modal.setAppElement('#root');
 //Nav bar
@@ -25,7 +27,8 @@ root.render(
         <BrowserRouter>
             <Navbar/>
             <Routes>
-                <Route path='/'></Route>
+                <Route path='/'/>
+                <Route path='/token' element={<TokenSetter/>}/>
                 <Route path='/MyPage' element={<MyPage/>}/>
                 <Route path='/recommend/area' element={<RecommendPage/>} />
                 <Route path='/spotinfo' element={<SpotInfoPage/>} />
