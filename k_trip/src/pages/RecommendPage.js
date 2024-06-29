@@ -85,7 +85,7 @@ function RecommendPage() {
         <button
           key={i}
           onClick={() => setPage(i)}
-          className={page === i ? "active" : ""}
+          className={page === i ? "active curr-pg" : "pg-num-btn"}
         >
           {i}
         </button>
@@ -192,15 +192,26 @@ function RecommendPage() {
           <div className="pagination-controls">
             {page > 1 && (
               <>
-                <button onClick={() => setPage(1)}>맨 앞으로</button>
-                <button onClick={() => setPage(page - 1)}>이전</button>
+                <button className="most-front-btn" onClick={() => setPage(1)}>
+                  맨 앞으로
+                </button>
+                <button className="prev-btn" onClick={() => setPage(page - 1)}>
+                  이전
+                </button>
               </>
             )}
             {renderPageNumbers()}
             {page < totalPages && (
               <>
-                <button onClick={() => setPage(page + 1)}>다음</button>
-                <button onClick={() => setPage(totalPages)}>맨 뒤로</button>
+                <button className="next-btn" onClick={() => setPage(page + 1)}>
+                  다음
+                </button>
+                <button
+                  className="most-back-btn"
+                  onClick={() => setPage(totalPages)}
+                >
+                  맨 뒤로
+                </button>
               </>
             )}
           </div>
