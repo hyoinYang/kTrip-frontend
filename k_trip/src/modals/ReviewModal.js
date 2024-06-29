@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
-import postReviewData from "../postReiviewData";
+import postReviewData from "../postReviewData"
 import Modal from 'react-modal';
 import '../index.css';
 
