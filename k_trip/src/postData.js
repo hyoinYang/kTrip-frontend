@@ -39,7 +39,9 @@ const postData = async (endpoint, setLoading, setError, params) => {
         if (endpoint === 'signIn') {
             const accessToken = response.headers['authorization'];
             if (accessToken) {
+                const currentTime = new Date().getTime();
                 localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('tokenIssueTime', currentTime);
             }
         }
 
