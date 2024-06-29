@@ -59,6 +59,14 @@ function Navbar() {
 
         navigate('/mypage');
     };
+    const handleUserLocationClick = () => {
+        navigate('/location');
+    };
+
+    const handleLocationClick = () => {
+        navigate('/');
+        setLocationModalIsOpen(true)
+    };
 
     return (
         <>
@@ -88,9 +96,18 @@ function Navbar() {
                                     <button
                                         className="nav-link active btn btn-info"
                                         aria-current="page"
-                                        onClick={() => setLocationModalIsOpen(true)}
+                                        onClick={handleLocationClick}
                                     >
                                         지역
+                                    </button>
+                                </li>
+                                <li className="nav-item nav-element">
+                                    <button
+                                        className="nav-link active btn btn-info"
+                                        aria-current="page"
+                                        onClick={handleUserLocationClick}
+                                    >
+                                        위치
                                     </button>
                                 </li>
                                 {isLoggedIn ? (
@@ -201,10 +218,11 @@ function Navbar() {
                         </div>
                     </div>
                 </nav>
-                <LocationComponent isLocation={location}/>
+                {/*<LocationComponent isLocation={location}/>*/}
                 <AreaModal
                     isOpen={locationModalIsOpen}
                     onClose={() => setLocationModalIsOpen(false)}
+                    isLocation={onCloseLocation}
                 />
                 <GuideModal
                     isOpen={guideModalIsOpen}

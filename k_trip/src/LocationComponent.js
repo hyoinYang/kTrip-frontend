@@ -4,12 +4,11 @@ import SpotInfoPage from "./pages/SpotInfoPage";
 import RecommendPage from "./pages/RecommendPage";
 import {useNavigate} from "react-router-dom";
 import "./css/button.css";
+import "./css/recommend-page.css";
 
-const LocationComponent = ({isLocation}) => {
-    console.log("locationcomponent: ", isLocation);
+const LocationComponent = () => {
 
     const [location, setLocation] = useState(null);
-    const [isAgree, setIsAgree] = useState(isLocation)
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [data, setData] = useState([]);
@@ -24,19 +23,18 @@ const LocationComponent = ({isLocation}) => {
     const [spotInfoPageIsOpen, setSpotInfoPageIsOpen] = useState(false);
     const navigate = useNavigate();
 
-    console.log("isAgree: ", isAgree);
+
     const handleItemClick = (contentid, contenttypeid, title) => {
         setRecommendPageIsOpen(false);
         navigate(`/spotinfo?cid=${contentid}&ctypeid=${contenttypeid}&title=${title}`);
     };
     useEffect(() => {
         // 위치 정보 가져오기
-        if (navigator.geolocation && isLocation) {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     const {latitude, longitude} = position.coords;
                     setLocation({latitude, longitude});
-                    setIsAgree(true);
                     // 서버에 위치 정보 전송 예시
                     fetchData(`trip/location?mapX=${encodeURIComponent(longitude)}&mapY=${encodeURIComponent(latitude)}&radius=2000`, (response) => {
 
@@ -56,10 +54,80 @@ const LocationComponent = ({isLocation}) => {
     }, []); // 빈 배열을 전달하여 한 번만 실행되도록 합니다.
 
 
+    const renderPageNumbers = () => {
+        const pageNumbers = [];
+        const maxPagesToShow = 10;
+        const halfMaxPagesToShow = Math.floor(maxPagesToShow / 2);
+        let startPage = Math.max(1, page - halfMaxPagesToShow);
+        let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+
+        if (endPage - startPage < maxPagesToShow - 1) {
+            startPage = Math.max(1, endPage - maxPagesToShow + 1);
+        }
+
+        if (startPage > 1) {
+            pageNumbers.push(<span key="start-ellipsis">...</span>);
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            pageNumbers.push(
+                <button
+                    key={i}
+                    onClick={() => setPage(i)}
+                    className={page === i ? "active curr-pg" : "pg-num-btn"}
+                >
+                    {i}
+                </button>
+            );
+        }
+
+        if (endPage < totalPages) {
+            pageNumbers.push(<span key="end-ellipsis">...</span>);
+        }
+
+        return pageNumbers;
+    };
+
+    const totalPages = Math.ceil(totalCount / itemsPerPage);
+    const handlePageInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
+
+    const handlePageInputBlur = () => {
+        let parsedValue = parseInt(inputValue, 10); // 정수로 변환
+        let pageNumber = Math.max(1, Math.min(totalPages, parsedValue));
+
+        if (parsedValue !== pageNumber) {
+            alert(`페이지는 1에서 ${totalPages} 사이의 값을 가져야 합니다.`);
+            // 입력이 잘못된 경우 현재 페이지로 다시 설정
+            pageNumber = page;
+        }
+
+        setPage(pageNumber);
+        setInputValue(pageNumber);
+    };
+
+    const handlePageInputKeyDown = (e) => {
+        if (e.key === "Enter") {
+            let parsedValue = parseInt(inputValue, 10); // 정수로 변환
+            let pageNumber = Math.max(1, Math.min(totalPages, parsedValue));
+
+            if (parsedValue !== pageNumber) {
+                alert(`페이지는 1에서 ${totalPages} 사이의 값을 가져야 합니다.`);
+                // 입력이 잘못된 경우 현재 페이지로 다시 설정
+                pageNumber = page;
+            }
+
+            setPage(pageNumber);
+            setInputValue(pageNumber);
+        }
+    };
+
     return (
         <div>
             {error && <p>{error}</p>}
-            {isLocation && recommendPageIsOpen && (
+            { recommendPageIsOpen && (
                 <div>
                     <main className="page-content">
                         <div className="recommendation-list">
@@ -76,10 +144,52 @@ const LocationComponent = ({isLocation}) => {
                             }
                         </div>
                     </main>
+                    {data.length > 0 && (
+                        <footer className="page-footer">
+                            <div className="pagination-controls">
+                                {page > 1 && (
+                                    <>
+                                        <button className="most-front-btn" onClick={() => setPage(1)}>
+                                            맨 앞으로
+                                        </button>
+                                        <button className="prev-btn" onClick={() => setPage(page - 1)}>
+                                            이전
+                                        </button>
+                                    </>
+                                )}
+                                {renderPageNumbers()}
+                                {page < totalPages && (
+                                    <>
+                                        <button className="next-btn" onClick={() => setPage(page + 1)}>
+                                            다음
+                                        </button>
+                                        <button
+                                            className="most-back-btn"
+                                            onClick={() => setPage(totalPages)}
+                                        >
+                                            맨 뒤로
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+                            <div className="page-input">
+                                <input
+                                    type="number"
+                                    min="1"
+                                    max={totalPages}
+                                    value={inputValue}
+                                    onChange={handlePageInputChange}
+                                    onBlur={handlePageInputBlur}
+                                    onKeyDown={handlePageInputKeyDown}
+                                />
+                                <span> / {totalPages}</span>
+                            </div>
+                        </footer>
+                        )}
                 </div>
             )}
             {/* SpotInfoPage 컴포넌트 */}
-            {isLocation && spotInfoPageIsOpen && (
+            {spotInfoPageIsOpen && (
                 <SpotInfoPage
                     contentid={selectedContentId}
                     contenttypeid={selectedContentTypeId}
