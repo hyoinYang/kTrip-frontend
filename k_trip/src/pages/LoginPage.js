@@ -3,6 +3,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // React Router의 useNavigate 임포트
 import postData from "../postData"; // postData 함수 임포트
 import '../css/LoginPage.css';
+import naverLoginBtn from '../image/btnG_완성형.png';
+import fetchData from "../fetchData";
+import TokenSetter from "./TokenSetter";
 function LoginPage(){
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
@@ -26,7 +29,10 @@ function LoginPage(){
                 navigate('/'); // 로그인 성공 시 '/' 경로로 이동
         }
     };
-
+    const handleNaverLogin = (event) => {
+        event.preventDefault();
+        window.location.href = 'http://localhost:8080/login/oauth2';
+    };
     return (
         <div className="login-container">
             <h2 className="login-title">Login</h2>
@@ -55,6 +61,9 @@ function LoginPage(){
                     로그인
                 </button>
             </form>
+            <button type="submit" className = "login-button" disabled={loading} onClick={(e) => handleNaverLogin(e)}>
+                    <img src={naverLoginBtn} className="naver-login-button"/>
+            </button>
         </div>
     );
 };
