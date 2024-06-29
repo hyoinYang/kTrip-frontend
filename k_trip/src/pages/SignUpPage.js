@@ -3,6 +3,8 @@ import axios from 'axios';
 import postData from "../postData";
 import {useNavigate} from "react-router-dom";
 import '../css/SignUpPage.css';
+import '../css/SignUpPage.css';
+import naverLoginBtn from '../image/btnG_완성형.png';
 function SignUpPage(){
     const [formData, setFormData] = useState({
         id: '',
@@ -30,6 +32,12 @@ function SignUpPage(){
             console.error('Error:', error);
         }
     };
+
+    const handleNaverLogin = (event) => {
+        event.preventDefault();
+        window.location.href = 'http://localhost:8080/login/oauth2';
+    };
+
     return (
         <div className="register-container">
             <h2 className="register-title">K-Trip 회원 가입</h2>
@@ -41,6 +49,9 @@ function SignUpPage(){
                 <input type="email" name="email" className="register-label register-input" value={formData.email} onChange={handleChange} placeholder="이메일" required />
                 <button type="submit">회원가입</button>
             </form>
+            <button type="submit" className = "login-button" disabled={loading} onClick={(e) => handleNaverLogin(e)}>
+                <img src={naverLoginBtn} className="naver-login-button"/>
+            </button>
         </div>
     );
 };

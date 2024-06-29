@@ -5,12 +5,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AreaModal from "./modals/AreaModal";
 import GuideModal from "./modals/GuideModal";
 import { Outlet } from "react-router-dom";
+import LocationComponent from "./LocationComponent";
 
 function Navbar() {
 
     const navigate = useNavigate();
     const [locationModalIsOpen, setLocationModalIsOpen] = useState(false);
     const [guideModalIsOpen, setGuideModalIsOpen] = useState(false);
+    const [location, setLocation] = useState(true);
+    const onCloseLocation = () => {
+        setLocation(false)
+    }
 
 
     const handleSearchSubmit = (event) => {
@@ -137,6 +142,7 @@ function Navbar() {
                         </div>
                     </div>
                 </nav>
+                <LocationComponent isLocation={location}/>
                 <AreaModal
                     isOpen={locationModalIsOpen}
                     onClose={() => setLocationModalIsOpen(false)}

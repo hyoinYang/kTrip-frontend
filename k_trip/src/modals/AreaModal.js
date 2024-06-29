@@ -5,7 +5,7 @@ import "./modalStyles/areamodal.css";
 import "../css/button.css";
 import { useNavigate } from "react-router-dom";
 
-const AreaModal = ({ isOpen, onClose }) => {
+const AreaModal = ({ isOpen, onClose, isLocation }) => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
@@ -62,6 +62,7 @@ const AreaModal = ({ isOpen, onClose }) => {
     if (isOpen) {
       setPage(1);
       setSelectedAreaCode(null);
+      isLocation();
     }
   }, [isOpen]);
 
