@@ -18,17 +18,9 @@ const postData = async (endpoint, setLoading, setError, params) => {
                 }
             });
         }
-        else if (endpoint.startsWith('mypage')) {
+        else if (endpoint.startsWith('mypage') || endpoint.startsWith('favorite') || endpoint === 'logout') {
             const accessToken = localStorage.getItem('accessToken');
-            response = await axios.post(url, params, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization' : `${accessToken}`
-                }
-            });
-        }
-        else if (endpoint.startsWith('favorite')) {
-            const accessToken = localStorage.getItem('accessToken');
+            console.log(accessToken);
             response = await axios.post(url, params, {
                 headers: {
                     'Content-Type': 'application/json',

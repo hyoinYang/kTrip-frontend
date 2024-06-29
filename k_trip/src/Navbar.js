@@ -1,22 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AreaModal from "./modals/AreaModal";
 import GuideModal from "./modals/GuideModal";
 import { Outlet } from "react-router-dom";
+
 import LocationComponent from "./LocationComponent";
+import './css/button.css'
+import { FiUser } from "react-icons/fi"; // FiUser 아이콘 임포트
+
+import postData from "./postData";
+
 
 function Navbar() {
-
     const navigate = useNavigate();
     const [locationModalIsOpen, setLocationModalIsOpen] = useState(false);
     const [guideModalIsOpen, setGuideModalIsOpen] = useState(false);
+
     const [location, setLocation] = useState(true);
     const onCloseLocation = () => {
         setLocation(false)
     }
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
+
+    // 컴포넌트가 마운트될 때 로그인 상태 확인
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+        setIsLoggedIn(!!token); // 토큰이 있으면 true, 없으면 false 설정
+    }, []);
 
     const handleSearchSubmit = (event) => {
         event.preventDefault(); // 기본 제출 동작 방지
@@ -24,12 +40,34 @@ function Navbar() {
         const keyword = formData.get('keyword'); // 폼 데이터에서 검색어 추출
         navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=1`);
     };
+
     const handleLoginClick = () => {
         navigate('/login');
     };
+    const handleLogOutClick = () => {
+        postData('logout', setLoading, setError, null);
+        setIsLoggedIn(false);
+        localStorage.removeItem('accessToken');
+        navigate('/');
+    };
+
     const handleSignUpClick = () => {
         navigate('/signup');
     };
+
+    const handleMyPageClick = () => {
+
+        navigate('/mypage');
+    };
+    const handleUserLocationClick = () => {
+        navigate('/location');
+    };
+
+    const handleLocationClick = () => {
+        navigate('/');
+        setLocationModalIsOpen(true)
+    };
+
     return (
         <>
             <div className="App">
@@ -58,27 +96,63 @@ function Navbar() {
                                     <button
                                         className="nav-link active btn btn-info"
                                         aria-current="page"
-                                        onClick={() => setLocationModalIsOpen(true)}
+                                        onClick={handleLocationClick}
                                     >
                                         지역
                                     </button>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item nav-element">
                                     <button
-                                        className="nav-link btn btn-info"
-                                        onClick={() => handleLoginClick()}
+                                        className="nav-link active btn btn-info"
+                                        aria-current="page"
+                                        onClick={handleUserLocationClick}
                                     >
-                                        로그인
+                                        위치
                                     </button>
                                 </li>
-                                <li className="nav-item">
-                                    <button
-                                        className="nav-link btn btn-info"
-                                        onClick={() => handleSignUpClick()}
-                                    >
-                                        회원가입
-                                    </button>
-                                </li>
+                                {isLoggedIn ? (
+                                    // 로그인 상태일 때
+                                    <>
+                                        <li className="nav-item">
+                                            <button
+                                                className="nav-link btn btn-info"
+                                                onClick={handleMyPageClick}
+                                            >
+                                                <FiUser className="icon" />
+                                            </button>
+                                        </li>
+                                        <li className="nav-item">
+                                            <button
+                                                className="nav-link btn btn-info"
+                                                onClick={() => {
+                                                    handleLogOutClick()
+                                                }}
+                                            >
+                                                로그아웃
+                                            </button>
+                                        </li>
+                                    </>
+                                ) : (
+                                    // 비로그인 상태일 때
+                                    <>
+                                        <li className="nav-item">
+                                            <button
+                                                className="nav-link btn btn-info"
+                                                onClick={handleLoginClick}
+                                            >
+                                                로그인
+                                            </button>
+                                        </li>
+                                        <li className="nav-item">
+                                            <button
+                                                className="nav-link btn btn-info"
+                                                onClick={handleSignUpClick}
+                                            >
+                                                회원가입
+                                            </button>
+                                        </li>
+                                    </>
+                                )}
                                 <li className="nav-item dropdown nav-element">
                                     <a
                                         className="nav-link dropdown-toggle btn btn-info"
@@ -120,11 +194,13 @@ function Navbar() {
                                     </button>
                                 </li>
                             </ul>
-                            <form className="d-flex"
-                                  role="search"
-                                  action="/trip/search"
-                                  method = "GET"
-                                  onSubmit={handleSearchSubmit}>
+                            <form
+                                className="d-flex"
+                                role="search"
+                                action="/trip/search"
+                                method="GET"
+                                onSubmit={handleSearchSubmit}
+                            >
                                 <input
                                     className="form-control me-2"
                                     type="search"
@@ -142,10 +218,11 @@ function Navbar() {
                         </div>
                     </div>
                 </nav>
-                <LocationComponent isLocation={location}/>
+                {/*<LocationComponent isLocation={location}/>*/}
                 <AreaModal
                     isOpen={locationModalIsOpen}
                     onClose={() => setLocationModalIsOpen(false)}
+                    isLocation={onCloseLocation}
                 />
                 <GuideModal
                     isOpen={guideModalIsOpen}
