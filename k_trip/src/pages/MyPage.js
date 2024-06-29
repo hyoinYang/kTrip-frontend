@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./my-page.css";
 import fetchData from "../fetchData";
-import auth from "../auth";
 
 function MyPage(){
     const navigate = useNavigate();
