@@ -10,7 +10,6 @@ import MyPage from "./MyPage";
 import Trip from "./Trip";
 import Register from "./Register";
 import ChangePassword from "./ChangePassword";
-import ChangeNickname from "./ChangeNickname";
 // import ReviewModal from "./modals/ReviewModal";
 
 const router = createBrowserRouter([
@@ -32,10 +31,6 @@ const router = createBrowserRouter([
         element: <ChangePassword />,
       },
       {
-        path: "mypage/nickname",
-        element: <ChangeNickname />,
-      },
-      {
         path: "trip",
         element: <Trip />,
       },
@@ -44,6 +39,7 @@ const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+
 
     // 존재하지 않는 라우터가 입력되는 경우, 오류 메시지를 출력한다.
     errorElement: <NotFound />,

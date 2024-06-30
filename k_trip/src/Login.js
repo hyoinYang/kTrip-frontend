@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./styles/Login.css";
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -28,14 +29,19 @@ const Login = () => {
     });
   };
 
-  const navigate = useNavigate();
   const handleSignup = () => {
-    return navigate("/signup");
+    alert("Redirect to signup page");
+    // Add the logic to redirect to the signup page
   };
 
   const handleFindPassword = () => {
     alert("Redirect to find password page");
     // Add the logic to redirect to the find password page
+  };
+
+  const handleCloseSignup = () => {
+    alert("Close signup button clicked");
+    // Add logic to close signup modal or perform other actions
   };
 
   return (
@@ -72,12 +78,16 @@ const Login = () => {
           로그인
         </button>
       </form>
-      <button onClick={handleFindPassword} className="login-secondary-button">
-        비밀번호 찾기
-      </button>
       <button onClick={handleSignup} className="login-secondary-button">
         회원가입
       </button>
+      <button onClick={handleFindPassword} className="login-secondary-button">
+        비밀번호 찾기
+      </button>
+      {/* X 아이콘을 포함한 닫기 버튼 */}
+      <IconButton onClick={handleCloseSignup} className="close-button">
+        <CloseIcon />
+      </IconButton>
     </div>
   );
 };

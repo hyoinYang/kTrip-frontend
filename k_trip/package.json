@@ -26,15 +26,14 @@
     "react-modal": "^3.16.1",
     "react-native-web": "^0.19.11",
     "react-native-web-svg": "^1.0.0",
-    "react-router-dom": "^6.23.1",
+    "react-router-dom": "^6.24.0",
     "react-scripts": "5.0.1",
     "stream-browserify": "^3.0.0",
-    "styled-components": "^6.1.11",
     "url": "^0.11.3",
     "util": "^0.12.5",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://apis.data.go.kr/B551011/KorService1",
+  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
