@@ -84,7 +84,7 @@ function SpotInfoPage() {
         return (
             <div className="recommendation-item">
                 <p><strong>Point:</strong>{item.point}</p>
-                <p><strong>작성자:</strong> {item.mid}</p>
+                <p><strong>작성자:</strong> {item.nickname}</p>
                 <p><strong>내용:</strong> {item.content}</p>
                 <p><strong>작성일자:</strong> {item.writedate}</p>
             </div>

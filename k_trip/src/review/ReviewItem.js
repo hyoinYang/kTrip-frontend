@@ -5,6 +5,7 @@ import { faStar, faStarHalfAlt, faStar as faStarEmpty } from '@fortawesome/free-
 
 function ReviewItem({ review }) {
     // 별점을 렌더링하는 함수
+    console.log(review.nickname)
     const renderStars = (point) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
@@ -24,6 +25,7 @@ function ReviewItem({ review }) {
         <>
             <View style={styles.card}>
                 <View style={styles.container}>
+                    <Text >{review.nickname}</Text>
                     <Text style={styles.descriptionText}>{review.content}</Text>
                     <View style={styles.starsContainer}>
                         {renderStars(review.point)}

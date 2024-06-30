@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import fetchData from "../fetchData";
-import './SpotInfoPage.css';
-import { FaStar } from "react-icons/fa";
+import '../css/TourCoursePage.css';
 import { useLocation, useNavigate } from "react-router-dom";
-import ReviewModal from "../modals/ReviewModal";
 
 function TourCoursePage() {
     const location = useLocation();
@@ -17,8 +15,6 @@ function TourCoursePage() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        console.log(contentid);
-        console.log(contenttypeid);
         const fetchDetailInfo = async () => {
             try {
                 setLoading(true);
@@ -38,14 +34,13 @@ function TourCoursePage() {
     return (
         <div className="tour-course-page">
             <h1>{title}</h1>
-            <button>코스 경로보기</button>
             <div className="course-list">
                 {Array.isArray(data) && data.length > 0 ? (
                     data.map((item, index) => (
                         <div key={index} className="course-item">
-                            <h2>{item.subname}</h2>
-                            {item.subdetailimg && <img src={item.subdetailimg} alt={item.subdetailalt} />}
-                            <p>{item.subdetailoverview}</p>
+                            <h2 className="course-item-title">{item.subname}</h2>
+                            {item.subdetailimg && <img className="course-item-image" src={item.subdetailimg} alt={item.subdetailalt} />}
+                            <p className="course-item-description">{item.subdetailoverview}</p>
                         </div>
                     ))
                 ) : (
