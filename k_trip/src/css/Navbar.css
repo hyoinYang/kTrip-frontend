@@ -1,0 +1,54 @@
+.navbar {
+    background-color: #f8f9fa; /* 배경색 설정 */
+    padding: 10px 0; /* 위아래 패딩 설정 */
+    border-bottom: 1px solid #ced4da; /* 하단 경계선 설정 */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between; /* 요소들을 좌우로 분산 배치 */
+    align-items: center; /* 요소들을 수직 중앙 정렬 */
+}
+
+.navbar-brand {
+    font-size: 1.5rem; /* 로고 폰트 사이즈 설정 */
+}
+
+.navbar-content {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style: none; /* 리스트 마커 제거 */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-left: 10px; /* 메뉴 간격 설정 */
+}
+
+.nav-link {
+    color: #fff; /* 텍스트 색상 설정 */
+    cursor: pointer; /* 포인터 형태로 변경 */
+}
+
+.nav-link:hover {
+    text-decoration: none; /* 호버 시 텍스트 밑줄 제거 */
+}
+
+.navbar-search {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* 왼쪽 여백 자동 마진 설정 */
+}
+
+.form-control {
+    margin-right: 5px; /* 검색 입력창 오른쪽 마진 설정 */
+}
+
+.search_btn {
+    margin-left: 5px; /* 검색 버튼 왼쪽 마진 설정 */
+}

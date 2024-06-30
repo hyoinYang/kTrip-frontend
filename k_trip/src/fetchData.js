@@ -1,19 +1,40 @@
-import axios from "axios";
+import axios from 'axios';
 
-const baseURL = "http://localhost:8080/";
+const baseURL = 'http://localhost:8080/';
 
 const fetchData = async (endpoint, setData, setError, setLoading, params) => {
     try {
         setError(null);
         setLoading(true);
+        if(endpoint === 'signIn' || endpoint.startsWith('mypage') || endpoint.startsWith('favorite')){
 
-        const response = await axios.get(`${baseURL}${endpoint}`, { params });
-        // Assuming the array you need is in response.data
-        const dataArray = response.data;
-        setData(dataArray); // Update the state with the fetched data
-        console.log(dataArray);
-    } catch (e) {
-        setError(e);
+            const accessToken = localStorage.getItem('accessToken');
+            const response = await axios.get(`${baseURL}${endpoint}`, {
+                params,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': accessToken ? `${accessToken}` : ''
+                },
+                withCredentials: true
+            });
+            const dataArray = response.data;
+            setData(dataArray);
+            return response;
+        }
+        else if(endpoint === 'signUp/valid'){
+            const response = await axios.get(`${baseURL}${endpoint}`, { params });
+            const status = response.status;
+            return status;
+        }
+
+        else{
+            const response = await axios.get(`${baseURL}${endpoint}`, { params });
+            const dataArray = response.data;
+            setData(dataArray);
+        }
+
+    } catch (error) {
+        setError(error);
     } finally {
         setLoading(false);
     }

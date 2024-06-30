@@ -134,3 +134,34 @@
     font-width: normal;
     src: url("../fonts/KimjungchulMyungjo-Regular.ttf");
 }
+
+.close {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 5px;
+    top: 2px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* 마이페이지 버튼 icon css */
+.mypage-btn {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #007bff; /* 부트스트랩 기본 색상 */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mypage-btn:hover {
+    background-color: #0056b3; /* 호버 시 색상 변화 */
+}
+
+
+
+
