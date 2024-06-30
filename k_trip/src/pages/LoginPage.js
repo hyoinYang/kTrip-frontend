@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom'; // React Router의 useNavigate �
 import postData from "../postData"; // postData 함수 임포트
 import '../css/LoginPage.css';
 import naverLoginBtn from '../image/btnG_완성형.png';
-import '../css/button.css'
-import { BsX } from 'react-icons/bs'; // Bootstrap Icons에서 X 아이콘 임포트
 import fetchData from "../fetchData";
 import TokenSetter from "./TokenSetter";
 import { Button } from 'react-bootstrap'; // React Bootstrap에서 Button 컴포넌트 임포트
+import { BsX } from 'react-icons/bs'; // Bootstrap Icons에서 X 아이콘 임포트
+import '../modals/modalStyles/userInfoModal.css'
+
+
 
 function LoginPage(){
     const [id, setId] = useState('');
@@ -18,7 +20,6 @@ function LoginPage(){
     const [isValid, setIsValid] = useState(null);
     const navigate = useNavigate(); // useNavigate 훅 사용
     const [isHovered, setIsHovered] = useState(false); // 마우스 호버 여부 상태
-
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
         if (token) {
@@ -32,8 +33,8 @@ function LoginPage(){
         event.preventDefault();
         setLoading(true);
         const params = {
-                id: id,
-                password: password
+            id: id,
+            password: password
         };
 
         const responseData = await postData('signIn', setLoading, setError, params);
@@ -41,8 +42,8 @@ function LoginPage(){
             alert('로그인 실패');
         }
         else {
-            localStorage.setItem('accessToken', responseData.accessToken); // 서버에서 받은 accessToken 저장
             navigate('/'); // 로그인 성공 시 '/' 경로로 이동
+            window.location.reload();
         }
     };
     const handleNaverLogin = (event) => {
@@ -55,8 +56,8 @@ function LoginPage(){
     };
 
     return (
-        <div className="login-container">
-            <div className="login-header">
+        <div className="user-container">
+            <div className="user-header">
                 <h2 className="login-title">Login</h2>
                 {/* X 아이콘을 우측 상단에 위치시킨 닫기 버튼 */}
                 <Button

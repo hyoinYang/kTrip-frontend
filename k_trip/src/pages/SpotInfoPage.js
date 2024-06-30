@@ -19,7 +19,7 @@ function SpotInfoPage() {
     const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(null);
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
-    checkTokenValidity();
+    //checkTokenValidity();
     useEffect(() => {
         const fetchDetailInfo = async () => {
 
@@ -59,7 +59,7 @@ function SpotInfoPage() {
         fetchData('reviews', setReview, setError, setLoading, {ctypeid: contenttypeid, cid: contentid});
         setReviewModalIsOpen(false);
     }
-    const handleFavoriteClick = async (event) => {  // 즐겨찾기 상태를 토글하는 함수 추가
+    const handleFavoriteClick = async (event, contentid, title) => {  // 즐겨찾기 상태를 토글하는 함수 추가
 
         event.preventDefault();
 
@@ -67,6 +67,7 @@ function SpotInfoPage() {
         try {
             await postData('favorite/toggle', setLoading, setError, {
                 cid: contentid,
+                cname: title,
                 toggle: toggleValue
             });
             setIsFavorite(!isFavorite);  // 상태를 반전하여 업데이트
@@ -239,12 +240,22 @@ function SpotInfoPage() {
                     </button>
                 </div>
                 <p><strong>주소:</strong> {item.addr1} {item.addr2}</p>
-                <p><strong>전화번호:</strong> {item.infocenterculture}</p>
+                <p><strong>전화번호:</strong> {item.infocenterlodging}</p>
                 <p><strong>소개:</strong> {item.overview}</p>
-                <p><strong>주차장:</strong> {item.parking}</p>
-                <p><strong>반려동물 동반 여부:</strong> {item.chkpetculture}</p>
-                <p><strong>운영시간:</strong> {item.usetimeculture}</p>
-                <p><strong>유모차 대여 여부:</strong> {item.chkbabycarriageculture}</p>
+                <p><strong>객실 수:</strong> {item.roomcount}</p>
+                <p><strong>주차장:</strong> {item.parkinglodging}</p>
+                <p><strong>욕조:</strong> {item.roombath}</p>
+                <p><strong>부대시설:</strong> {item.subfacility}</p>
+                <p><strong>취사 여부:</strong> {item.chkcooking}</p>
+                <p><strong>체크인:</strong> {item.checkintime}</p>
+                <p><strong>체크아웃:</strong> {item.checkouttime}</p>
+                <p><strong>TV:</strong> {item.roomtv}</p>
+                <p><strong>PC:</strong> {item.roompc}</p>
+                <p><strong>인터넷:</strong> {item.roominternet}</p>
+                <p><strong>에어컨:</strong> {item.roomaircondition}</p>
+                <p><strong>최대인원:</strong> {item.roommaxcount}</p>
+                <p><strong>픽업:</strong> {item.pickup}</p>
+                <p><strong>예약주소:</strong> {item.reservationurl}</p>
                 <p><strong>수정 시간:</strong> {item.modifiedtime}</p>
             </div>
         ),
