@@ -19,6 +19,7 @@ function SpotInfoPage() {
     const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(null);
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
+    const [authToken, setAuthToken] = useState(localStorage.getItem('accessToken') || '');
     //checkTokenValidity();
     useEffect(() => {
         const fetchDetailInfo = async () => {
@@ -60,21 +61,25 @@ function SpotInfoPage() {
         setReviewModalIsOpen(false);
     }
     const handleFavoriteClick = async (event, contentid, title) => {  // 즐겨찾기 상태를 토글하는 함수 추가
-
         event.preventDefault();
+        if(authToken){
+            const toggleValue = isFavorite ? 0 : 1;  // 현재 상태에 따라 토글 값 설정
+            try {
+                await postData('favorite/toggle', setLoading, setError, {
+                    cid: contentid,
+                    cname: title,
+                    toggle: toggleValue
+                });
+                setIsFavorite(!isFavorite);  // 상태를 반전하여 업데이트
 
-        const toggleValue = isFavorite ? 0 : 1;  // 현재 상태에 따라 토글 값 설정
-        try {
-            await postData('favorite/toggle', setLoading, setError, {
-                cid: contentid,
-                cname: title,
-                toggle: toggleValue
-            });
-            setIsFavorite(!isFavorite);  // 상태를 반전하여 업데이트
 
-
-        } catch (e) {
-            setError(true);
+            } catch (e) {
+                setError(true);
+            }
+        }
+        else{
+            alert('로그인 먼저 해주세요.');
+            navigate('/login');
         }
     };
     const handleCourseClick = (contentid, contenttypeid, title) =>{
