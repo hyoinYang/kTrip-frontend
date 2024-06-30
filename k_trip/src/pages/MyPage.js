@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./my-page.css";
 import fetchData from "../fetchData";
-import checkTokenValidity from '../CheckToken';
+// import checkTokenValidity from '../CheckToken';
 // import deleteBtn from "../image/deleteBtn.png";
+import postData from "../postData";
 function MyPage(){
     const navigate = useNavigate();
     const [data, setData] = useState([]);
@@ -21,8 +22,33 @@ function MyPage(){
     const handleChangePasswordClick = () => {
         return navigate("/mypage/password");
     };
-    checkTokenValidity();
-
+    // checkTokenValidity();
+    const handleRevDeleteClick = async (rid) => {
+        try {
+            setLoading(true);
+            const response = await postData('mypage/revdelete', setError, setLoading, {rid});
+            console.log("Data fetched:", response);
+            alert('내가 쓴 리뷰에서 삭제되었습니다.');
+            window.location.reload()
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+    const handleFavDeleteClick = async (fid) => {
+        try {
+            setLoading(true);
+            const response = await postData('mypage/favdelete',  setError, setLoading, {fid});
+            console.log("Data fetched:", response);
+            alert('즐겨찾기에서 삭제되었습니다.');
+            window.location.reload()
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    }
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
         if (!token) {
@@ -100,6 +126,7 @@ function MyPage(){
                             <span className="review-content">{review.content}</span>
                             <span className="review-date">{review.writedate}</span>
                             <span className="review-point">{review.point} 점</span>
+                            <button onClick={() =>  handleRevDeleteClick(review.rid)}>삭제하기</button>
                         </div>
                     ))
                 ) : (
@@ -112,6 +139,7 @@ function MyPage(){
                     myFavorite.map((favorite, index) => (
                         <div key={index}>
                             <span>{favorite.cname}</span>
+                            <button onClick={() =>  handleFavDeleteClick(favorite.fid)}>삭제하기</button>
                         </div>
                     ))
                 ) : (
