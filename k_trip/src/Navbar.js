@@ -25,7 +25,12 @@ function Navbar() {
         event.preventDefault(); // 기본 제출 동작 방지
         const formData = new FormData(event.target);
         const keyword = formData.get('keyword'); // 폼 데이터에서 검색어 추출
-        navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=1`);
+        if(keyword.length === 0){
+            alert('검색어를 입력해주세요.');
+        }
+        else{
+            navigate(`/trip/search?q=${encodeURIComponent(keyword)}&page=1`);
+        }
     };
 
     const handleLoginClick = () => {
