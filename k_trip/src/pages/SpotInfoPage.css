@@ -1,84 +1,122 @@
+/* Container for the spot info page */
 .spot-info-page {
     max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    color: #2c3e50;
+    line-height: 1.6;
 }
 
+/* Header section styling */
 .page-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .page-header h1 {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 32px;
+    font-weight: 700;
+    color: #34495e;
 }
 
+/* Content section styling */
 .page-content {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    color: #2c3e50;
 }
 
+/* Recommendation list styling */
 .recommendation-list {
     display: grid;
     gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
+/* Recommendation item styling */
 .recommendation-item {
-    padding: 15px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
 }
 
+.recommendation-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Recommendation item title */
+.recommendation-item h3 {
+    font-size: 22px;
+    color: #2980b9;
+    margin-bottom: 10px;
+}
+
+/* Recommendation item description */
 .recommendation-item p {
-    margin: 5px 0;
     font-size: 16px;
-    font-family: "KimjungchulMyungjo-Regular";
+    color: #2c3e50;
+    word-wrap: break-word;
 }
 
-.page-footer {
-    text-align: center;
-    margin-top: 20px;
+/* Image styling */
+.recommendation-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
 }
 
-.page-footer button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
+/* Favorite star styling */
+.favorite-star {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
-}
-
-.page-footer button:hover {
-    background-color: #0056b3;
-}
-.item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.favorite-button {
     background: none;
     border: none;
-    cursor: pointer;
+    padding: 0;
 }
 
-.favorite-button.favorite {
-    color: yellow;
+.favorite-star svg {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }
-.course-name{
-    font-size: 24px;
+
+/* Review button styling */
+.button--review {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #3498db; /* 무난한 파란색 배경 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 }
-@font-face {
-    font-family: "KimjungchulMyungjo-Regular";
-    font-width: normal;
-    src: url("../fonts/KimjungchulMyungjo-Regular.ttf");
+
+.button--review:hover {
+    background-color: #2980b9; /* 호버 시 더 어두운 파란색 */
+    transform: scale(1.05);
+}
+
+/* Adjust the review modal style */
+.review-modal {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
