@@ -3,13 +3,17 @@ import { useNavigate } from "react-router-dom";
 import "./my-page.css";
 import fetchData from "../fetchData";
 import checkTokenValidity from '../CheckToken';
+// import deleteBtn from "../image/deleteBtn.png";
 function MyPage(){
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [myReview, setMyReview] = useState([]);
+    const [myFavorite, setMyFavorite] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [valid, setIsValid] = useState(null);
+
+
 
     const handleChangeNicknameClick = () => {
         return navigate("/mypage/nickname");
@@ -54,9 +58,21 @@ function MyPage(){
                     setLoading(false);
                 }
             };
+            const fetchMyFavoriteData = async () => {
+                try {
+                    setLoading(true);
+                    const response = await fetchData('mypage/favorite', setMyFavorite, setError, setLoading, {});
+                    console.log("Data fetched:", response);
+                } catch (error) {
+                    setError(error);
+                } finally {
+                    setLoading(false);
+                }
+            };
 
             fetchUserData();
             fetchMyReviewData();
+            fetchMyFavoriteData();
         }
     }, [valid, setData, setLoading, setError, setMyReview]);
 
@@ -80,7 +96,7 @@ function MyPage(){
                 <span className="my-review-title top-title">작성한 리뷰</span>
                 {myReview.length > 0 ? (
                     myReview.map((review, index) => (
-                        <div key={index} className="review-item">
+                        <div key={index}>
                             <span className="review-content">{review.content}</span>
                             <span className="review-date">{review.writedate}</span>
                             <span className="review-point">{review.point} 점</span>
@@ -92,6 +108,15 @@ function MyPage(){
             </div>
             <div className="saved-loc-container">
                 <span className="my-loc-title top-title">저장한 여행지</span>
+                {myFavorite.length > 0 ? (
+                    myFavorite.map((favorite, index) => (
+                        <div key={index}>
+                            <span>{favorite.cname}</span>
+                        </div>
+                    ))
+                ) : (
+                    <span className="no-review-message">작성한 리뷰가 없습니다</span>
+                )}
             </div>
         </div>
     );

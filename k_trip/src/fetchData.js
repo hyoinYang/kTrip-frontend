@@ -21,12 +21,16 @@ const fetchData = async (endpoint, setData, setError, setLoading, params) => {
             setData(dataArray);
             return response;
         }
+        else if(endpoint === 'signUp/valid'){
+            const response = await axios.get(`${baseURL}${endpoint}`, { params });
+            const status = response.status;
+            return status;
+        }
+
         else{
             const response = await axios.get(`${baseURL}${endpoint}`, { params });
-            // Assuming the array you need is in response.data
             const dataArray = response.data;
-            setData(dataArray); // Update the state with the fetched data
-            console.log(dataArray);
+            setData(dataArray);
         }
 
     } catch (error) {

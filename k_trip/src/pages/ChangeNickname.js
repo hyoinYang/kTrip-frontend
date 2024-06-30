@@ -5,6 +5,9 @@ import {useNavigate} from "react-router-dom";
 import fetchData from "../fetchData";
 import axios from "axios";
 import checkTokenValidity from '../CheckToken';
+import {BsX} from "react-icons/bs";
+import {Button} from "react-bootstrap";
+import '../modals/modalStyles/userInfoModal.css'
 const ChangeNickname = () => {
     const navigate = useNavigate();
     const [currentNickname, setCurrentNickname] = useState("");
@@ -15,6 +18,7 @@ const ChangeNickname = () => {
     const [error, setError] = useState("");
     const [authToken, setAuthToken] = useState(localStorage.getItem('accessToken') || '');
     // 토큰 시간 유효성 검사 함수
+    const [isHovered, setIsHovered] = useState(false); // 마우스 호버 여부 상태
 
 
     useEffect(() => {
@@ -45,9 +49,28 @@ const ChangeNickname = () => {
 
     };
 
+    const handleCloseSignup = () => {
+        navigate('/MyPage');
+    };
+
     return (
-        <div className="cp-container">
+        <div className="user-container">
+            <div className="user-header">
             <h2 className="cp-title">닉네임 변경</h2>
+            <Button
+                variant="link"
+                className="close"
+                onClick={handleCloseSignup}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                style={{
+                    transition: 'transform 0.3s',
+                    transform: isHovered ? 'rotate(90deg)' : 'rotate(0deg)',
+                }}
+            >
+                <BsX className="icon" style={{ fontSize: '24px' }} />
+            </Button>
+            </div>
             <form className="cp-form" onSubmit={handleSubmit}>
                 <div>
                     <label className="cp-label">현재 닉네임: {currentNickname}</label>
