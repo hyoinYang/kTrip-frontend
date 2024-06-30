@@ -136,7 +136,7 @@ function MyPage(){
                 )}
             </div>
             <div className="saved-loc-container">
-                <span className="my-loc-title top-title">저장한 여행지</span>
+                <span className="my-loc-title top-title">즐겨찾기 여행지</span>
                 {myFavorite.length > 0 ? (
                     myFavorite.map((favorite, index) => (
                         <div className="favorite-container" key={index}>
@@ -147,7 +147,7 @@ function MyPage(){
                         </div>
                     ))
                 ) : (
-                    <span className="no-review-message">작성한 리뷰가 없습니다</span>
+                    <span className="no-review-message">즐겨찾기한 여행지가 없습니다</span>
                 )}
             </div>
         </div>
