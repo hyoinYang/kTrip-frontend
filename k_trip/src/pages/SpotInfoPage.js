@@ -19,7 +19,7 @@ function SpotInfoPage() {
     const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(null);
     const [reviewModalIsOpen, setReviewModalIsOpen] = useState(false);
-    checkTokenValidity();
+    //checkTokenValidity();
     useEffect(() => {
         const fetchDetailInfo = async () => {
 
@@ -59,7 +59,7 @@ function SpotInfoPage() {
         fetchData('reviews', setReview, setError, setLoading, {ctypeid: contenttypeid, cid: contentid});
         setReviewModalIsOpen(false);
     }
-    const handleFavoriteClick = async (event) => {  // 즐겨찾기 상태를 토글하는 함수 추가
+    const handleFavoriteClick = async (event, contentid, title) => {  // 즐겨찾기 상태를 토글하는 함수 추가
 
         event.preventDefault();
 
@@ -67,6 +67,7 @@ function SpotInfoPage() {
         try {
             await postData('favorite/toggle', setLoading, setError, {
                 cid: contentid,
+                cname: title,
                 toggle: toggleValue
             });
             setIsFavorite(!isFavorite);  // 상태를 반전하여 업데이트
