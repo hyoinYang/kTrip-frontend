@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./my-page.css";
+import "../css/my-page.css";
 import fetchData from "../fetchData";
-// import checkTokenValidity from '../CheckToken';
-// import deleteBtn from "../image/deleteBtn.png";
+
+import checkTokenValidity from '../CheckToken.js';
 import postData from "../postData";
 function MyPage(){
     const navigate = useNavigate();
@@ -122,11 +122,13 @@ function MyPage(){
                 <span className="my-review-title top-title">작성한 리뷰</span>
                 {myReview.length > 0 ? (
                     myReview.map((review, index) => (
-                        <div key={index}>
-                            <span className="review-content">{review.content}</span>
-                            <span className="review-date">{review.writedate}</span>
-                            <span className="review-point">{review.point} 점</span>
-                            <button onClick={() =>  handleRevDeleteClick(review.rid)}>삭제하기</button>
+                        <div className="review-container" key={index}>
+                            <div className = "review-info">
+                                <span className="review-content">{review.content} </span>
+                                <span className="review-date">{review.writedate} </span>
+                                <span className="review-point">{review.point}점</span>
+                            </div>
+                            <button className="delete-btn" onClick={() =>  handleRevDeleteClick(review.rid)}>X</button>
                         </div>
                     ))
                 ) : (
@@ -137,9 +139,11 @@ function MyPage(){
                 <span className="my-loc-title top-title">저장한 여행지</span>
                 {myFavorite.length > 0 ? (
                     myFavorite.map((favorite, index) => (
-                        <div key={index}>
-                            <span>{favorite.cname}</span>
-                            <button onClick={() =>  handleFavDeleteClick(favorite.fid)}>삭제하기</button>
+                        <div className="favorite-container" key={index}>
+                            <div className = "favorite-info">
+                                <span>{favorite.cname}</span>
+                                <button className="delete-btn" onClick={() =>  handleFavDeleteClick(favorite.fid)}>X</button>
+                            </div>
                         </div>
                     ))
                 ) : (

@@ -13,16 +13,14 @@
 
 .my-info-container,
 .saved-loc-container {
-  width: 20%; /* Adjust the width as needed */
-  margin-right: 10px;
-  width: 300px;
+  width: 15%;
 }
 
 .my-review-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 55%; /* Set a wider width for the review container */
+  width: 70%; /* Set a wider width for the review container */
   max-height: 300px; /* Set a fixed height for the review container */
   overflow-y: auto; /* Enable vertical scrolling */
   padding-right: 10px; /* To avoid content being hidden under scrollbar */
@@ -30,15 +28,18 @@
 }
 
 .my-info-container {
+  width: 15%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .saved-loc-container {
+  width: 15%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
 }
 
 .top-title {
@@ -56,6 +57,37 @@
   align-items: center;
   margin-bottom: 10px;
 }
+.review-content {
+  width: 60%; /* 콘텐츠의 너비 */
+  margin-right: 10px; /* 오른쪽 여백 */
+}
+
+.review-date {
+  width: 30%; /* 날짜의 너비 */
+  margin-right: 10px; /* 오른쪽 여백 */
+}
+
+.review-point {
+  width: 10%; /* 포인트의 너비 */
+  margin-right: 10px; /* 오른쪽 여백 */
+}
+.review-container,
+.favorite-container{
+  border: 1px solid #ccc; /* border 추가 */
+  padding: 10px; /* 내부 여백 추가 */
+  margin-bottom: 10px; /* 리뷰 간격 조정 */
+  display: flex; /* flexbox 사용 */
+  justify-content: space-between; /* 공간을 균등하게 분배 */
+  align-items: center; /* 수직 정렬 */
+}
+
+.review-info,
+.favorite-info{
+  display: flex; /* flexbox 사용 */
+  align-items: center; /* 수직 정렬 */
+  justify-content: space-between; /* 공간을 균등하게 분배 */
+}
+
 .change-user-info-btn,
 .change-password-btn {
   margin-top: 10px;
@@ -73,13 +105,6 @@
 .change-user-info-btn:hover,
 .change-password-btn:hover {
   background-color: #45a049;
-}
-.delete-btn{
-  width: 15%; /* 이미지의 너비를 설정합니다. */
-  margin-right: 5px; /* 이미지와 텍스트 사이의 간격을 설정합니다. */
-  cursor: pointer;
-  background-color: transparent; /* 배경색을 투명하게 설정합니다. */
-  border: none; /* 테두리를 없앱니다. */
 }
 .review-section {
   border-bottom: 1px solid #ddd;
@@ -101,9 +126,10 @@
   color: #888;
 }
 
-.edit-btn,
+
 .delete-btn {
-  background-color: #4caf50;
+  background-color: red;
+  width: 25%;
   color: white;
   border: none;
   border-radius: 5px;
@@ -112,7 +138,7 @@
   margin-left: 5px;
 }
 
-.edit-btn:hover,
+
 .delete-btn:hover {
-  background-color: #45a049;
+  background-color: darkred;
 }
