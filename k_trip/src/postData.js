@@ -11,21 +11,19 @@ const postData = async (endpoint, setLoading, setError, params) => {
         console.log(url);
         console.log(params);
         let response;
-        if (endpoint === 'signIn' || endpoint === 'signUp') {
-            response = await axios.post(url, params, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        }
-        else if (endpoint.startsWith('mypage') || endpoint.startsWith('favorite') || endpoint === 'logout') {
+        if (endpoint === 'signIn' || endpoint.startsWith('signUp') || endpoint.startsWith('mypage') || endpoint.startsWith('favorite') || endpoint === 'logout') {
             const accessToken = localStorage.getItem('accessToken');
-            console.log(accessToken);
+            console.log({params});
+            let headers = {
+                'Content-Type': 'application/json'
+            };
+
+            if (accessToken) {
+                headers['Authorization'] = accessToken;
+            }
+
             response = await axios.post(url, params, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization' : `${accessToken}`
-                }
+                headers: headers
             });
         }
         else {
