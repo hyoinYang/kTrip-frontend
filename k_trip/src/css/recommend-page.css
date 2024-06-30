@@ -58,3 +58,15 @@ body
 .item-header > img {
   max-width: 700px;
 }
+
+.item-header > h2 {
+  width: 80%;
+}
+
+.item-header > .button--text-medium {
+  width: 10%;
+}
+
+.favorite-button {
+  width: 10%;
+}
