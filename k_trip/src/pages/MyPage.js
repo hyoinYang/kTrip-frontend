@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./my-page.css";
+import "../css/my-page.css";
 import fetchData from "../fetchData";
 import checkTokenValidity from '../CheckToken';
-import deleteBtn from "../image/deleteBtn.png";
 import postData from "../postData";
 function MyPage(){
     const navigate = useNavigate();
