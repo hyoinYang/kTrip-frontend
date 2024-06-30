@@ -96,15 +96,18 @@ function SpotInfoPage() {
                 <div className="item-header">
                     {item.firstimage && <img src={item.firstimage} alt={item.title}/>}
                 </div>
-                <div className="item-header">
+                <div>
                     <h2>{item.title}</h2>
-                    <button onClick={() => setReviewModalIsOpen(true)} className="button--review">
-                        리뷰 쓰기
-                    </button>
-                    <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)}
-                            className="favorite-button">
-                        <FaStar size={30} color={isFavorite ? "yellow" : "gray"}/>
-                    </button>
+                    <div className="item-header">
+                        <button onClick={() => setReviewModalIsOpen(true)}
+                                className="button--review button button--size-m button--text-medium bg-1 button--winona">
+                            리뷰 쓰기
+                        </button>
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)}
+                                className="favorite-button">
+                            <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
+                        </button>
+                    </div>
                 </div>
                 <p><strong>주소:</strong> {item.addr1} {item.addr2}</p>
                 <p><strong>전화번호:</strong> {item.infocenter}</p>
@@ -123,16 +126,18 @@ function SpotInfoPage() {
                 <div className="item-header">
                     {item.firstimage && <img src={item.firstimage} alt={item.title}/>}
                 </div>
-                <div className="item-header">
+                <div>
                     <h2>{item.title}</h2>
-                    <button onClick={() => setReviewModalIsOpen(true)}
-                            className="button button--size-m button--text-medium bg-1 button--winona">
-                        리뷰 쓰기
-                    </button>
-                    <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)}
-                            className="favorite-button">
-                        <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
-                    </button>
+                    <div className="item-header">
+                        <button onClick={() => setReviewModalIsOpen(true)}
+                                className="button--review button button--size-m button--text-medium bg-1 button--winona">
+                            리뷰 쓰기
+                        </button>
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)}
+                                className="favorite-button">
+                            <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
+                        </button>
+                    </div>
                 </div>
                 <p><strong>주소:</strong> {item.addr1} {item.addr2}</p>
                 <p><strong>전화번호:</strong> {item.infocenterculture}</p>
@@ -154,14 +159,18 @@ function SpotInfoPage() {
                 <div className="item-header">
                     {item.firstimage && <img src={item.firstimage} alt={item.title} />}
                 </div>
-                <div className="item-header">
+                <div>
                     <h2>{item.title}</h2>
-                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
-                        리뷰 쓰기
-                    </button>
-                    <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
-                        <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
-                    </button>
+                    <div className="item-header">
+                        <button onClick={() => setReviewModalIsOpen(true)}
+                                className="button--review button button--size-m button--text-medium bg-1 button--winona">
+                            리뷰 쓰기
+                        </button>
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)}
+                                className="favorite-button">
+                            <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
+                        </button>
+                    </div>
                 </div>
                 <p><strong>주소:</strong> {item.addr1} {item.addr2}</p>
                 <p><strong>전화번호:</strong> {item.tel}</p>
@@ -182,17 +191,23 @@ function SpotInfoPage() {
                 <div className="item-header">
                     {item.firstimage && <img src={item.firstimage} alt={item.title} />}
                 </div>
-                <div className="item-header">
+                <div>
                     <h2>{item.title}</h2>
-                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
-                        리뷰 쓰기
-                    </button>
-                    <button onClick={(event) => handleCourseClick(contentid, contenttypeid, item.title)} className="button button--size-m button--text-medium bg-1 button--winona">
-                        코스 상세보기
-                    </button>
-                    <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
-                        <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
-                    </button>
+                    <div className="item-header">
+                        <button onClick={() => setReviewModalIsOpen(true)}
+                                className="button--review button button--size-m button--text-medium bg-1 button--winona">
+                            리뷰 쓰기
+                        </button>
+                        <button
+                            className="button--course button button--size-m button--text-medium bg-1 button--winona"
+                            onClick={(event) => handleCourseClick(contentid, contenttypeid, item.title)}>
+                            코스 상세보기
+                        </button>
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)}
+                                className="favorite-button">
+                            <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
+                        </button>
+                    </div>
                 </div>
                 <p><strong>주소:</strong> {item.addr1} {item.addr2}</p>
                 <p><strong>전화번호:</strong> {item.infocenterculture}</p>
@@ -206,14 +221,18 @@ function SpotInfoPage() {
                 <div className="item-header">
                     {item.firstimage && <img src={item.firstimage} alt={item.title} />}
                 </div>
-                <div className="item-header">
+                <div>
                     <h2>{item.title}</h2>
-                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
-                        리뷰 쓰기
-                    </button>
-                    <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
-                        <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
-                    </button>
+                    <div className="item-header">
+                        <button onClick={() => setReviewModalIsOpen(true)}
+                                className="button--review button button--size-m button--text-medium bg-1 button--winona">
+                            리뷰 쓰기
+                        </button>
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)}
+                                className="favorite-button">
+                            <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
+                        </button>
+                    </div>
                 </div>
                 <p><strong>주소:</strong> {item.addr1} {item.addr2}</p>
                 <p><strong>유모차 대여 여부:</strong> {item.chkbabycarriageleports}</p>
@@ -233,14 +252,18 @@ function SpotInfoPage() {
                 <div className="item-header">
                     {item.firstimage && <img src={item.firstimage} alt={item.title} />}
                 </div>
-                <div className="item-header">
+                <div>
                     <h2>{item.title}</h2>
-                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
-                        리뷰 쓰기
-                    </button>
-                    <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
-                        <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
-                    </button>
+                    <div className="item-header">
+                        <button onClick={() => setReviewModalIsOpen(true)}
+                                className="button--review button button--size-m button--text-medium bg-1 button--winona">
+                            리뷰 쓰기
+                        </button>
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)}
+                                className="favorite-button">
+                            <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
+                        </button>
+                    </div>
                 </div>
                 <p><strong>주소:</strong> {item.addr1} {item.addr2}</p>
                 <p><strong>전화번호:</strong> {item.infocenterlodging}</p>
@@ -267,14 +290,18 @@ function SpotInfoPage() {
                 <div className="item-header">
                     {item.firstimage && <img src={item.firstimage} alt={item.title} />}
                 </div>
-                <div className="item-header">
+                <div>
                     <h2>{item.title}</h2>
-                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
-                        리뷰 쓰기
-                    </button>
-                    <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
-                        <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
-                    </button>
+                    <div className="item-header">
+                        <button onClick={() => setReviewModalIsOpen(true)}
+                                className="button--review button button--size-m button--text-medium bg-1 button--winona">
+                            리뷰 쓰기
+                        </button>
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)}
+                                className="favorite-button">
+                            <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
+                        </button>
+                    </div>
                 </div>
                 <p><strong>주소:</strong> {item.addr1} {item.addr2}</p>
                 <p><strong>소개:</strong> {item.overview}</p>
@@ -291,14 +318,18 @@ function SpotInfoPage() {
                 <div className="item-header">
                     {item.firstimage && <img src={item.firstimage} alt={item.title} />}
                 </div>
-                <div className="item-header">
+                <div>
                     <h2>{item.title}</h2>
-                    <button onClick={() => setReviewModalIsOpen(true)} className="button button--size-m button--text-medium bg-1 button--winona">
-                        리뷰 쓰기
-                    </button>
-                    <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)} className="favorite-button">
-                        <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
-                    </button>
+                    <div className="item-header">
+                        <button onClick={() => setReviewModalIsOpen(true)}
+                                className="button--review button button--size-m button--text-medium bg-1 button--winona">
+                            리뷰 쓰기
+                        </button>
+                        <button onClick={(event) => handleFavoriteClick(event, contentid, item.title)}
+                                className="favorite-button">
+                            <FaStar size={30} color={isFavorite ? "yellow" : "gray"} />
+                        </button>
+                    </div>
                 </div>
                 <p><strong>주소:</strong> {item.addr1} {item.addr2}</p>
                 <p><strong>소개:</strong> {item.overview}</p>
